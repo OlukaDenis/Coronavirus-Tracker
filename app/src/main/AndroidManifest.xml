@@ -15,6 +15,17 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="m">
+        <activity android:name=".view.ui.TreatmentActivity"></activity>
+        <activity android:name=".view.ui.PreventionActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".view.HomeActivity" />
+        </activity>
+        <activity android:name=".view.ui.SymptomsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".view.HomeActivity" />
+        </activity>
         <activity
             android:name=".view.HomeActivity"
             android:label="@string/app_name"
@@ -24,8 +35,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".view.MainActivity">
         </activity>
     </application>
 

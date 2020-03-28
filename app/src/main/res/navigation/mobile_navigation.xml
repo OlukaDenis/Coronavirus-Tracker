@@ -18,20 +18,9 @@
         tools:layout="@layout/fragment_countries" />
 
     <fragment
-        android:id="@+id/nav_news"
-        android:name="com.premar.coronavirusapp.view.ui.news.NewsFragment"
-        android:label="@string/news"
-        tools:layout="@layout/fragment_news" />
+        android:id="@+id/nav_feedback"
+        android:name="com.premar.coronavirusapp.view.ui.FeedbackFragment"
+        android:label="Feedback"
+        tools:layout="@layout/fragment_feedback" />
 
-    <fragment
-        android:id="@+id/nav_facts"
-        android:name="com.premar.coronavirusapp.view.ui.facts.FactsFragment"
-        android:label="@string/covid19_facts"
-        tools:layout="@layout/fragment_facts" />
-
-    <fragment
-        android:id="@+id/nav_bug"
-        android:name="com.premar.coronavirusapp.view.ui.share.ShareFragment"
-        android:label="Report Bug"
-        tools:layout="@layout/fragment_bug" />
 </navigation>
