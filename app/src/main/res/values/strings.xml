@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">Coronavirus Tracker</string>
+    <string name="_000">--</string>
+    <string name="uganda_corona_status">Uganda Corona Status</string>
+    <string name="recovered">Recovered</string>
+    <string name="deaths">Deaths</string>
+    <string name="confirmed">Confirmed</string>
+    <string name="global_coronavirus_status">Global Coronavirus Status</string>
+    <string name="more_countries">More Countries</string>
+    <string name="more_news">More News</string>
+    <string name="covid19_recent_news">Covid19 Recent News</string>
+    <string name="more">More</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Coronavirus Tracker</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_tools">Tools</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_send">Send</string>
+    <string name="report_bug">Report Bug</string>
+    <string name="developer">Developer</string>
+    <string name="covid19_facts">Covid19 Facts</string>
+    <string name="countries">Countries Stats</string>
+    <string name="news">Covid19 News</string>
+    <string name="today"> %1$d  today</string>
+</resources>
