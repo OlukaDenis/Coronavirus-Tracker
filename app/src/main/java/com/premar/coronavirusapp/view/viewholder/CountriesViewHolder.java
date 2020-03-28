@@ -2,6 +2,7 @@ package com.premar.coronavirusapp.view.viewholder;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -10,15 +11,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.premar.coronavirusapp.R;
 import com.premar.coronavirusapp.model.CoronaCountry;
 import com.premar.coronavirusapp.model.CountryInfo;
+import com.squareup.picasso.Picasso;
 
-import java.util.List;
 
 import static com.premar.coronavirusapp.Utils.Constants.formatNumber;
-import static com.premar.coronavirusapp.view.ui.home.HomeFragment.countryInfoSize;
 
 public class CountriesViewHolder extends RecyclerView.ViewHolder {
     private static final String TAG = "CountriesViewHolder";
-    private TextView confirmed, deaths, recovered, countryName, confirmedToday, deathsToday, countryFlag;
+    private TextView confirmed, deaths, recovered, countryName, confirmedToday, deathsToday;
+    private ImageView countryFlag;
 
     public CountriesViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -41,6 +42,12 @@ public class CountriesViewHolder extends RecyclerView.ViewHolder {
         deathsToday.setText(formatNumber(country.getTodayDeaths()));
 
         CountryInfo countryInfos = country.getCountryInfo();
-        countryInfoSize = countryInfos.toString();
+
+        Picasso.get()
+                .load(countryInfos.getFlag())
+                .placeholder(R.drawable.ic_flag)
+                .error(R.drawable.ic_flag)
+                .into(countryFlag);
+
     }
 }

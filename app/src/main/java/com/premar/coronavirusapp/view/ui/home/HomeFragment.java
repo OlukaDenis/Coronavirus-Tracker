@@ -1,15 +1,18 @@
 package com.premar.coronavirusapp.view.ui.home;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -21,9 +24,14 @@ import com.premar.coronavirusapp.R;
 import com.premar.coronavirusapp.data.api.ApiClient;
 import com.premar.coronavirusapp.data.api.ApiService;
 import com.premar.coronavirusapp.model.CoronaCountry;
+import com.premar.coronavirusapp.model.CountryInfo;
 import com.premar.coronavirusapp.model.Covid;
+import com.premar.coronavirusapp.view.ui.PreventionActivity;
+import com.premar.coronavirusapp.view.ui.SymptomsActivity;
+import com.premar.coronavirusapp.view.ui.TreatmentActivity;
 import com.premar.coronavirusapp.view.ui.countries.CountriesFragment;
 import com.premar.coronavirusapp.viewmodel.CovidGlobalViewModel;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -35,9 +43,11 @@ import static com.premar.coronavirusapp.Utils.Constants.UGANDA;
 import static com.premar.coronavirusapp.Utils.Constants.formatNumber;
 
 public class HomeFragment extends Fragment {
-    public static String countryInfoSize = "";
+    public static String countryInfoSize;
 
     private TextView tvCases, tvDeaths, tvRecovered, ugCases, ugDeaths, ugRecovered, ugCasesToday, ugDeathsToday, moreCountries;
+    private ImageView ugandaFlag;
+    private CardView symptomCard, treatmentCard, faqCard, preventionCard;
     private HomeViewModel viewModel;
     private CountriesFragment countriesFragment;
     private FragmentManager fragmentManager;
@@ -58,15 +68,22 @@ public class HomeFragment extends Fragment {
         moreCountries = root.findViewById(R.id.more_countries);
         ugCasesToday = root.findViewById(R.id.uganda_cases_today);
         ugDeathsToday = root.findViewById(R.id.uganda_deaths_today);
+        ugandaFlag = root.findViewById(R.id.uganda_flag);
+        symptomCard = root.findViewById(R.id.symptom_card);
+        treatmentCard = root.findViewById(R.id.treatment_card);
+        faqCard = root.findViewById(R.id.faq_card);
+        preventionCard = root.findViewById(R.id.prevention_card);
 
         moreCountries.setOnClickListener(v -> openCountryFragement());
+        symptomCard.setOnClickListener(v -> startActivity(new Intent(getActivity(), SymptomsActivity.class)));
+        treatmentCard.setOnClickListener(v -> startActivity(new Intent(getActivity(), TreatmentActivity.class)));
+        preventionCard.setOnClickListener(v -> startActivity(new Intent(getActivity(), PreventionActivity.class)));
 
         HomeViewModelFactory factory = new HomeViewModelFactory(this.getActivity().getApplication());
         viewModel = new ViewModelProvider(this, factory).get(HomeViewModel.class);
         getStats();
         getUgandaCoronaStats();
 
-        Log.d(TAG, "countryInfoSize: "+countryInfoSize);
         return root;
 
     }
@@ -89,6 +106,12 @@ public class HomeFragment extends Fragment {
     }
 
     private void ugandaStats(CoronaCountry country){
+        CountryInfo countryInfo = country.getCountryInfo();
+        Picasso.get()
+                .load(countryInfo.getFlag())
+                .placeholder(R.drawable.ic_flag)
+                .error(R.drawable.ic_flag)
+                .into(ugandaFlag);
         ugCases.setText(formatNumber(country.getCases()));
         ugDeaths.setText(formatNumber(country.getDeaths()));
         ugRecovered.setText(formatNumber(country.getRecovered()));

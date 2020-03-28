@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Coronavirus Tracker</string>
     <string name="_000">--</string>
-    <string name="uganda_corona_status">Uganda Corona Status</string>
+    <string name="uganda_corona_status">Uganda Status</string>
     <string name="recovered">Recovered</string>
     <string name="deaths">Deaths</string>
     <string name="confirmed">Confirmed</string>
@@ -30,4 +30,49 @@
     <string name="countries">Countries Stats</string>
     <string name="news">Covid19 News</string>
     <string name="today"> %1$d  today</string>
+
+    <!--Corona facts-->
+    <string name="what_is_corona"> What is COVID-19? </string>
+    <string name="covid_19_answer"> COVID-19 is the infectious disease caused by the most recently discovered coronavirus. This new virus and disease were unknown before the outbreak began in Wuhan, China, in December 2019.</string>
+    <string name="symptoms">Symptoms</string>
+    <string name="prevention">Prevention</string>
+    <string name="treatment">Treatment</string>
+    <string name="q_amp_a"><![CDATA[Q & A]]></string>
+    <string name="symptom_1">People may be sick with the virus for 1 to 14 days before developing symptoms.
+        The most common symptoms of Coronavirus disease (COVID-19) are fever, tiredness, and dry cough.
+        Most people (about 80%) recover from the disease without needing special treatment. More rarely, the
+        disease can be serious and even fatal. Older people, and people with other medical conditions
+        (such as asthma, diabetes, or heart disease), may be more vulnerable to becoming severely ill.</string>
+    <string name="common_symptoms">Common symptoms</string>
+    <string name="running_nose">Running nose</string>
+    <string name="cough">Cough</string>
+    <string name="fever">Fever</string>
+    <string name="tiredness">Tiredness</string>
+    <string name="difficulty_in_breathing">Difficulty in breathing (Severe case)</string>
+    <string name="source_https_www_who_int">Source (https://www.who.int)</string>
+    <string name="no_vaccine">There’s currently no vaccine to prevent coronavirus disease (COVID-19).</string>
+    <string name="prevent_yourself">You can protect yourself and help prevent spreading the virus to others if you:</string>
+    <string name="do_s">Do\'s</string>
+    <string name="prevention_1">Wash your hands regularly for 20 seconds, with soap and water or alcohol-based hand rub</string>
+    <string name="prevention_2">Cover your nose and mouth with a disposable tissue or flexed elbow when you cough or sneeze</string>
+    <string name="prevention_3">Avoid close contact (1 meter or 3 feet) with people who are unwell</string>
+    <string name="prevention_4">Stay home and self-isolate from others in the household if you feel unwell</string>
+    <string name="don_t">Don\'t</string>
+    <string name="prevention_5">Touch your eyes, nose, or mouth if your hands are not clean</string>
+    <string name="no_treatment">There is no specific medicine to prevent or treat coronavirus disease (COVID-19). People may need supportive care to help them breathe.</string>
+    <string name="self_care">Self care</string>
+    <string name="self_care_1">If you have mild symptoms, stay at home until you’ve recovered. You can relieve your symptoms if you:</string>
+    <string name="self_care_2">Rest and sleep</string>
+    <string name="self_care_3">Keep warm</string>
+    <string name="self_care_4">Drink plenty of liquids</string>
+    <string name="self_care_5">Use a room humidifier or take a hot shower to help ease a sore throat and cough</string>
+    <string name="medical_treatments">Medical treatments</string>
+    <string name="medical_1">If you develop a fever, cough, and have difficulty breathing, promptly seek medical care. Call in advance and tell your health provider of any recent travel or recent contact with travelers.</string>
+    <string name="feedback">Feedback</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="corona_treatment">Coronavirus Treatment</string>
+    <string name="corona_symptoms">Coronavirus Symptoms</string>
+    <string name="corona_prevention">Coronavirus Prevention</string>
 </resources>
