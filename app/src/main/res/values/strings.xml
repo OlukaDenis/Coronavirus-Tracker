@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Coronavirus Tracker</string>
     <string name="_000">--</string>
-    <string name="uganda_corona_status">Uganda Status</string>
+    <string name="country_corona_status">%1$s Status</string>
     <string name="recovered">Recovered</string>
     <string name="deaths">Deaths</string>
     <string name="confirmed">Confirmed</string>

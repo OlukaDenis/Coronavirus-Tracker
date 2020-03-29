@@ -39,6 +39,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.premar.coronavirusapp.Utils.Constants.NIGERIA;
 import static com.premar.coronavirusapp.Utils.Constants.UGANDA;
 import static com.premar.coronavirusapp.Utils.Constants.formatNumber;
 
@@ -47,6 +48,7 @@ public class HomeFragment extends Fragment {
 
     private TextView tvCases, tvDeaths, tvRecovered, ugCases, ugDeaths, ugRecovered, ugCasesToday, ugDeathsToday, moreCountries;
     private ImageView ugandaFlag;
+    private TextView countryName;
     private CardView symptomCard, treatmentCard, faqCard, preventionCard;
     private HomeViewModel viewModel;
     private CountriesFragment countriesFragment;
@@ -73,6 +75,7 @@ public class HomeFragment extends Fragment {
         treatmentCard = root.findViewById(R.id.treatment_card);
         faqCard = root.findViewById(R.id.faq_card);
         preventionCard = root.findViewById(R.id.prevention_card);
+        countryName = root.findViewById(R.id.country_name_status);
 
         moreCountries.setOnClickListener(v -> openCountryFragement());
         symptomCard.setOnClickListener(v -> startActivity(new Intent(getActivity(), SymptomsActivity.class)));
@@ -118,6 +121,8 @@ public class HomeFragment extends Fragment {
 
         Resources res = getResources();
 
+        countryName.setText(String.format(res.getString(R.string.country_corona_status), country.getCountry()));
+
         ugCasesToday.setText(String.format(res.getString(R.string.today), country.getTodayCases()));
         ugDeathsToday.setText(String.format(res.getString(R.string.today), country.getTodayDeaths()));
     }
@@ -144,40 +149,20 @@ public class HomeFragment extends Fragment {
 
     private void getUgandaCoronaStats(){
         ApiService service = ApiClient.getApiService(ApiService.class);
-        Call<CoronaCountry> call = service.getOneCountry(UGANDA);
+        Call<CoronaCountry> call = service.getOneCountry(NIGERIA);
         call.enqueue(new Callback<CoronaCountry>() {
             @Override
             public void onResponse(Call<CoronaCountry> call, Response<CoronaCountry> response) {
                 if (response.isSuccessful()){
-                    CoronaCountry uganda = response.body();
-                    if (uganda != null) {
-                        ugandaStats(uganda);
+                    CoronaCountry country = response.body();
+                    if (country != null) {
+                        ugandaStats(country);
                     }
                 }
             }
 
             @Override
             public void onFailure(Call<CoronaCountry> call, Throwable t) {
-                Log.e(TAG, "onFailure: ",t );
-            }
-        });
-
-    }
-
-    private void fetchAllCountries(){
-        ApiService service = ApiClient.getApiService(ApiService.class);
-        Call<List<CoronaCountry>> call = service.getAllCountries();
-        call.enqueue(new Callback<List<CoronaCountry>>() {
-            @Override
-            public void onResponse(Call<List<CoronaCountry>> call, Response<List<CoronaCountry>> response) {
-                if (response.isSuccessful()) {
-                    List<CoronaCountry> countryList = response.body();
-                    Log.d(TAG, "Corona Countries: "+countryList.size());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<CoronaCountry>> call, Throwable t) {
                 Log.e(TAG, "onFailure: ",t );
             }
         });
