@@ -10,6 +10,8 @@ import com.premar.coronavirusapp.model.CoronaCountry;
 
 import java.util.List;
 
+import retrofit2.http.DELETE;
+
 @Dao
 public interface CoronaCountryDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -21,4 +23,7 @@ public interface CoronaCountryDao {
 
     @Query("SELECT * FROM corona_country")
     LiveData<List<CoronaCountry>> getAllCountries();
+
+    @Query("DELETE FROM corona_country")
+    void deleteAllCountries();
 }

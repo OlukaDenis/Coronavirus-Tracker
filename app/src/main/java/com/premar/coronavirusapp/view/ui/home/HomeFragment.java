@@ -7,8 +7,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
@@ -19,14 +21,21 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.work.Data;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkInfo;
+import androidx.work.WorkManager;
 
 import com.premar.coronavirusapp.R;
 import com.premar.coronavirusapp.data.api.ApiClient;
 import com.premar.coronavirusapp.data.api.ApiService;
+import com.premar.coronavirusapp.data.workers.CovidWorker;
+import com.premar.coronavirusapp.data.workers.GlobalCoronaWorker;
 import com.premar.coronavirusapp.model.CoronaCountry;
 import com.premar.coronavirusapp.model.CountryInfo;
 import com.premar.coronavirusapp.model.Covid;
 import com.premar.coronavirusapp.view.ui.PreventionActivity;
+import com.premar.coronavirusapp.view.ui.SymptomFormActivity;
 import com.premar.coronavirusapp.view.ui.SymptomsActivity;
 import com.premar.coronavirusapp.view.ui.TreatmentActivity;
 import com.premar.coronavirusapp.view.ui.countries.CountriesFragment;
@@ -34,6 +43,7 @@ import com.premar.coronavirusapp.viewmodel.CovidGlobalViewModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -41,13 +51,15 @@ import retrofit2.Response;
 
 import static com.premar.coronavirusapp.Utils.Constants.NIGERIA;
 import static com.premar.coronavirusapp.Utils.Constants.UGANDA;
+import static com.premar.coronavirusapp.Utils.Constants.UPDATED;
 import static com.premar.coronavirusapp.Utils.Constants.formatNumber;
 
 public class HomeFragment extends Fragment {
-    public static String countryInfoSize;
+    private WorkManager globalWorkManager, covidWorkManager;
 
     private TextView tvCases, tvDeaths, tvRecovered, ugCases, ugDeaths, ugRecovered, ugCasesToday, ugDeathsToday, moreCountries;
     private ImageView ugandaFlag;
+    private Button btnSymptom;
     private TextView countryName;
     private CardView symptomCard, treatmentCard, faqCard, preventionCard;
     private HomeViewModel viewModel;
@@ -76,7 +88,9 @@ public class HomeFragment extends Fragment {
         faqCard = root.findViewById(R.id.faq_card);
         preventionCard = root.findViewById(R.id.prevention_card);
         countryName = root.findViewById(R.id.country_name_status);
+        btnSymptom = root.findViewById(R.id.btn_submit_info);
 
+        btnSymptom.setOnClickListener(v -> startActivity(new Intent(getActivity(), SymptomFormActivity.class)) );
         moreCountries.setOnClickListener(v -> openCountryFragement());
         symptomCard.setOnClickListener(v -> startActivity(new Intent(getActivity(), SymptomsActivity.class)));
         treatmentCard.setOnClickListener(v -> startActivity(new Intent(getActivity(), TreatmentActivity.class)));
@@ -84,7 +98,36 @@ public class HomeFragment extends Fragment {
 
         HomeViewModelFactory factory = new HomeViewModelFactory(this.getActivity().getApplication());
         viewModel = new ViewModelProvider(this, factory).get(HomeViewModel.class);
-        getStats();
+
+        // initializing a work manager
+        covidWorkManager = WorkManager.getInstance(getActivity());
+        globalWorkManager = WorkManager.getInstance(getActivity());
+
+        Data source = new Data.Builder()
+                .putString("workType", "PeriodicTime")
+                .build();
+
+        //periodic work request
+        PeriodicWorkRequest periodicRequest = new PeriodicWorkRequest.Builder(CovidWorker.class, 15, TimeUnit.MINUTES)
+                .setInputData(source)
+                .build();
+        covidWorkManager.enqueue(periodicRequest);
+
+        //work info
+        covidWorkManager.getWorkInfoByIdLiveData(periodicRequest.getId()).observe(this, workInfo -> {
+            if (workInfo != null) {
+                WorkInfo.State state = workInfo.getState();
+            }
+        });
+
+
+        //global stats periodic work request
+        PeriodicWorkRequest globalStatsRequest = new PeriodicWorkRequest.Builder(GlobalCoronaWorker.class, 15, TimeUnit.MINUTES)
+                .build();
+        globalWorkManager.enqueue(globalStatsRequest);
+
+
+        populateStats();
         getUgandaCoronaStats();
 
         return root;
@@ -101,8 +144,8 @@ public class HomeFragment extends Fragment {
 
 
 
-    private void populateStats(Covid covid) {
-
+    private void populateStats() {
+        Covid covid = viewModel.getGlobalStats(UPDATED);
         tvCases.setText(formatNumber(covid.getCases()));
         tvDeaths.setText(formatNumber(covid.getDeaths()));
         tvRecovered.setText(formatNumber(covid.getRecovered()));
@@ -125,26 +168,6 @@ public class HomeFragment extends Fragment {
 
         ugCasesToday.setText(String.format(res.getString(R.string.today), country.getTodayCases()));
         ugDeathsToday.setText(String.format(res.getString(R.string.today), country.getTodayDeaths()));
-    }
-
-    private void getStats(){
-        ApiService service = ApiClient.getApiService(ApiService.class);
-        Call<Covid> call = service.getWorldStats();
-        call.enqueue(new Callback<Covid>() {
-            @Override
-            public void onResponse(Call<Covid> call, Response<Covid> response) {
-                if (response.isSuccessful()){
-                    Covid covids = response.body();
-                    Log.d(TAG, "Covid cases: "+covids.getCases());
-                    populateStats(covids);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Covid> call, Throwable t) {
-                Log.e(TAG, "onFailure: ",t );
-            }
-        });
     }
 
     private void getUgandaCoronaStats(){

@@ -15,6 +15,11 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="m">
+        <activity android:name=".view.ui.SymptomFormActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".view.HomeActivity" />
+        </activity>
         <activity android:name=".view.ui.TreatmentActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.premar.coronavirusapp.data.repository.CovidRepository;
 import com.premar.coronavirusapp.model.CoronaCountry;
+import com.premar.coronavirusapp.model.Covid;
 
 public class HomeViewModel extends ViewModel {
 
@@ -15,7 +16,9 @@ public class HomeViewModel extends ViewModel {
         repository = new CovidRepository(application);
     }
 
-    public CoronaCountry getUgandaStats(String country){
-        return repository.ugandaStatus(country);
+    public Covid getGlobalStats(String orderby){
+        return repository.getGlobalStat(orderby);
     }
+
+
 }

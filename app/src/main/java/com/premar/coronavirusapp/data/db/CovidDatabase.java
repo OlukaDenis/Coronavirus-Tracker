@@ -8,14 +8,16 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
 import com.premar.coronavirusapp.model.CoronaCountry;
+import com.premar.coronavirusapp.model.Covid;
 import com.premar.coronavirusapp.model.DataConverter;
 
-@Database(entities = {CoronaCountry.class}, version = 2, exportSchema = false )
+@Database(entities = {CoronaCountry.class, Covid.class}, version = 3, exportSchema = false )
 @TypeConverters(DataConverter.class)
 
 public abstract class CovidDatabase extends RoomDatabase {
     private static CovidDatabase INSTANCE;
     public abstract CoronaCountryDao countryDao();
+    public abstract GlobalDao globalDao();
 
     public static CovidDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {

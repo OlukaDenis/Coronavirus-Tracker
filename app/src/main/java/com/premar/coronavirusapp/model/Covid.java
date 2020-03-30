@@ -11,19 +11,26 @@ import androidx.room.PrimaryKey;
 import com.google.gson.annotations.SerializedName;
 
 
+@Entity(tableName = "covid_global")
 public class Covid implements Parcelable {
+    @ColumnInfo(name = "cases")
     @SerializedName("cases")
     private long cases;
 
+    @ColumnInfo(name = "deaths")
     @SerializedName("deaths")
     private long deaths;
 
+    @ColumnInfo(name = "recovered")
     @SerializedName("recovered")
     private long recovered;
 
+    @PrimaryKey
+    @ColumnInfo(name = "updated")
     @SerializedName("updated")
     private long updated;
 
+    @Ignore
     public Covid() {
     }
 

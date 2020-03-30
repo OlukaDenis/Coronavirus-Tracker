@@ -11,6 +11,8 @@ public class Constants {
     public static final String UGANDA = "uganda";
     public static final String NIGERIA = "nigeria";
 
+    public static final String UPDATED = "updated";
+
     public static String formatNumber(long number){
         NumberFormat formatter = new DecimalFormat("#,###");
         double num = (double) number;
