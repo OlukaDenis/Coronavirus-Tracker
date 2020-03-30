@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.premar.coronavirusapp.view.ui.home.HomeFragment"
+        android:name="com.mcdenny.coronavirusapp.view.ui.home.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/nav_countries"
-        android:name="com.premar.coronavirusapp.view.ui.countries.CountriesFragment"
+        android:name="com.mcdenny.coronavirusapp.view.ui.countries.CountriesFragment"
         android:label="Country Stats"
         tools:layout="@layout/fragment_countries" />
 
     <fragment
         android:id="@+id/nav_feedback"
-        android:name="com.premar.coronavirusapp.view.ui.FeedbackFragment"
+        android:name="com.mcdenny.coronavirusapp.view.ui.FeedbackFragment"
         android:label="Feedback"
         tools:layout="@layout/fragment_feedback" />
 

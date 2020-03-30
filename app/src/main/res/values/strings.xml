@@ -77,7 +77,7 @@
     <string name="corona_prevention">Coronavirus Prevention</string>
     <string name="symptom_info">If you think you have been exposed to COVID-19 and developed a fever and symptoms, submit your symptoms to the nearby hospital.</string>
     <string name="submit_symptoms_now">Submit Symptoms now</string>
-    
+
     <!--  Form questions-->
     <string name="question_1">Do you have trouble with breathing?</string>
     <string name="question_2">Are you experiencing persistent pain or pressure in the chest?</string>
@@ -98,6 +98,8 @@
     <string name="report_symptoms">Report Symptoms</string>
     <string name="your_telephone_number">Your telephone number</string>
     <string name="mobile_e_g_234">Mobile e.g. +234...</string>
+    <string name="ncdc_demo">ncdc demo</string>
+    <string name="gender">Gender</string>
 
 
 </resources>

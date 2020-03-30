@@ -21,13 +21,13 @@
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:text="@string/no_vaccine"
-               android:textColor="@color/colorPrimary"/>
+               style="@style/textSmallStyle"/>
 
            <TextView
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:text="@string/prevent_yourself"
-               android:textColor="@color/colorPrimary"/>
+               style="@style/textSmallStyle"/>
 
            <TextView
                android:layout_width="match_parent"
@@ -54,7 +54,7 @@
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:paddingStart="8dp"
-                   android:textColor="@color/colorPrimary"
+                   style="@style/textSmallStyle"
                    android:text="@string/prevention_1"/>
 
            </LinearLayout>
@@ -76,7 +76,7 @@
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:paddingStart="8dp"
-                   android:textColor="@color/colorPrimary"
+                   style="@style/textSmallStyle"
                    android:text="@string/prevention_2"/>
 
            </LinearLayout>
@@ -98,7 +98,7 @@
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:paddingStart="8dp"
-                   android:textColor="@color/colorPrimary"
+                   style="@style/textSmallStyle"
                    android:text="@string/prevention_3"/>
 
            </LinearLayout>
@@ -120,7 +120,7 @@
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:paddingStart="8dp"
-                   android:textColor="@color/colorPrimary"
+                   style="@style/textSmallStyle"
                    android:text="@string/prevention_4"/>
 
            </LinearLayout>
@@ -150,7 +150,7 @@
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:paddingStart="8dp"
-                   android:textColor="@color/colorPrimary"
+                   style="@style/textSmallStyle"
                    android:text="@string/prevention_5"/>
 
            </LinearLayout>
