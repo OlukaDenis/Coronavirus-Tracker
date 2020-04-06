@@ -37,7 +37,7 @@
     <string name="symptoms">Symptoms</string>
     <string name="prevention">Prevention</string>
     <string name="treatment">Treatment</string>
-    <string name="q_amp_a"><![CDATA[Q & A]]></string>
+    <string name="q_and_a">Self Test</string>
     <string name="symptom_1">People may be sick with the virus for 1 to 14 days before developing symptoms.
         The most common symptoms of Coronavirus disease (COVID-19) are fever, tiredness, and dry cough.
         Most people (about 80%) recover from the disease without needing special treatment. More rarely, the
@@ -97,9 +97,24 @@
     <string name="hospital_name">Hospital name</string>
     <string name="report_symptoms">Report Symptoms</string>
     <string name="your_telephone_number">Your telephone number</string>
-    <string name="mobile_e_g_234">Mobile e.g. +234...</string>
+    <string name="mobile_e_g_234">Mobile e.g. +234…</string>
     <string name="ncdc_demo">ncdc demo</string>
     <string name="gender">Gender</string>
+    <string name="title_activity_maps">Map</string>
 
+
+    <!-- Self test questions   -->
+    <string name="test1">Do you have cough?</string>
+    <string name="test2">Do you have cold?</string>
+    <string name="test3">Are you having body aches?</string>
+    <string name="test4">Are you having a sore  throat?</string>
+    <string name="test5">Do you have diarrhea?</string>
+    <string name="test6">Are you having headache?</string>
+    <string name="test7">Do you have fever? (Temperature 37.8 \u2103 and above)</string>
+    <string name="test8">Are you having a difficulty in breathing?</string>
+    <string name="test9"> Are you experiencing fatigue?</string>
+    <string name="test10"> Have you traveled recently in the past 14 days?</string>
+    <string name="test11">Do you have a history of traveling to an area infected with COVID-19?</string>
+    <string name="test12">Do you have direct contact with or are you taking care of positive COVID-19 patient?</string>
 
 </resources>

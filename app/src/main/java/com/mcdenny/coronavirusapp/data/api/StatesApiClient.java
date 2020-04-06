@@ -5,11 +5,9 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.mcdenny.coronavirusapp.Utils.Constants.BASE_URL;
+import static com.mcdenny.coronavirusapp.Utils.Constants.NIGERIAN_STATES_URL;
 
-public class ApiClient {
-    private static final int REQUEST_TIMEOUT = 60;
-
+public class StatesApiClient {
     // Create Logger
     private static HttpLoggingInterceptor logger =
             new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -19,7 +17,7 @@ public class ApiClient {
 
     // Create Retrofit Builder
     private static Retrofit.Builder builder = new Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(NIGERIAN_STATES_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(initOkHttp.build());
 
@@ -30,6 +28,4 @@ public class ApiClient {
     public static <T> T getApiService(Class<T> type) {
         return retrofit.create(type);
     }
-
-
 }

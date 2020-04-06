@@ -23,4 +23,16 @@
         android:label="Feedback"
         tools:layout="@layout/fragment_feedback" />
 
+    <fragment
+        android:id="@+id/nav_faq"
+        android:name="com.mcdenny.coronavirusapp.view.ui.faq.FaqFragment"
+        android:label="Self Test"
+        tools:layout="@layout/fragment_faq" />
+
+    <fragment
+        android:id="@+id/nav_facts"
+        android:name="com.mcdenny.coronavirusapp.view.ui.facts.FactsFragment"
+        android:label="Covid 19 Facts"
+        tools:layout="@layout/fragment_facts" />
+
 </navigation>

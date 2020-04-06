@@ -1,16 +1,16 @@
-package com.mcdenny.coronavirusapp.view.ui.news;
+package com.mcdenny.coronavirusapp.view.ui.faq;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class NewsViewModel extends ViewModel {
+public class FaqViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public NewsViewModel() {
+    public FaqViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is news fragment");
+        mText.setValue("This is faq fragment");
     }
 
     public LiveData<String> getText() {

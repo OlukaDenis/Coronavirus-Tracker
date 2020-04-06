@@ -2,6 +2,7 @@ package com.mcdenny.coronavirusapp.data.api;
 
 import com.mcdenny.coronavirusapp.model.CoronaCountry;
 import com.mcdenny.coronavirusapp.model.Covid;
+import com.mcdenny.coronavirusapp.model.State;
 
 import java.util.List;
 
@@ -19,4 +20,7 @@ public interface ApiService {
 
     @GET("countries/{country}")
     Call<CoronaCountry> getOneCountry(@Path("country") String country);
+
+    @GET("states")
+    Call<List<State>> getAllStates();
 }

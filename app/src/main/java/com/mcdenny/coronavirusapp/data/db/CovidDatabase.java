@@ -10,14 +10,16 @@ import androidx.room.TypeConverters;
 import com.mcdenny.coronavirusapp.model.CoronaCountry;
 import com.mcdenny.coronavirusapp.model.Covid;
 import com.mcdenny.coronavirusapp.model.DataConverter;
+import com.mcdenny.coronavirusapp.model.Hospital;
 
-@Database(entities = {CoronaCountry.class, Covid.class}, version = 3, exportSchema = false )
+@Database(entities = {CoronaCountry.class, Covid.class, Hospital.class}, version = 4, exportSchema = false )
 @TypeConverters(DataConverter.class)
 
 public abstract class CovidDatabase extends RoomDatabase {
     private static CovidDatabase INSTANCE;
     public abstract CoronaCountryDao countryDao();
     public abstract GlobalDao globalDao();
+    public abstract HospitalDao hospitalDao();
 
     public static CovidDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {

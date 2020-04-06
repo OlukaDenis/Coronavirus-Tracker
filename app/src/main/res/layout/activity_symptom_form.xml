@@ -319,18 +319,21 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/state_name_layout"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
-                        <com.google.android.material.textfield.TextInputEditText
+                        <AutoCompleteTextView
                             android:id="@+id/state_name"
-                            style="@style/textInputStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:hint="@string/state"
-                            android:inputType="textCapWords" />
+                            android:clickable="true"
+                            android:inputType="textCapWords"
+                            android:focusable="true" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -360,18 +363,21 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/hospital_name_layout"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
-                        <com.google.android.material.textfield.TextInputEditText
+                        <AutoCompleteTextView
                             android:id="@+id/hospital_name"
-                            style="@style/textInputStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:hint="@string/hospital_name"
-                            android:inputType="textCapWords" />
+                            android:clickable="true"
+                            android:inputType="textCapWords"
+                            android:focusable="true" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 

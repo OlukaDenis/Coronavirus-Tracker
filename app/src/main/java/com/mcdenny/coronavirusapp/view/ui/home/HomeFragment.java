@@ -2,6 +2,7 @@ package com.mcdenny.coronavirusapp.view.ui.home;
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -25,18 +27,30 @@ import androidx.work.WorkManager;
 import com.mcdenny.coronavirusapp.R;
 import com.mcdenny.coronavirusapp.data.api.ApiClient;
 import com.mcdenny.coronavirusapp.data.api.ApiService;
+import com.mcdenny.coronavirusapp.data.api.StatesApiClient;
+import com.mcdenny.coronavirusapp.data.local.LocalDataSource;
 import com.mcdenny.coronavirusapp.data.workers.CovidWorker;
 import com.mcdenny.coronavirusapp.model.CoronaCountry;
 import com.mcdenny.coronavirusapp.model.CountryInfo;
 import com.mcdenny.coronavirusapp.model.Covid;
+import com.mcdenny.coronavirusapp.model.Hospital;
+import com.mcdenny.coronavirusapp.model.State;
 import com.mcdenny.coronavirusapp.view.ui.PreventionActivity;
+import com.mcdenny.coronavirusapp.view.ui.hospitals.HospitalActivity;
+import com.mcdenny.coronavirusapp.view.ui.hospitals.HospitalViewModel;
+import com.mcdenny.coronavirusapp.view.ui.hospitals.HospitalViewModelFactory;
 import com.mcdenny.coronavirusapp.view.ui.symptom_form.SymptomFormActivity;
 import com.mcdenny.coronavirusapp.view.ui.SymptomsActivity;
 import com.mcdenny.coronavirusapp.view.ui.TreatmentActivity;
 import com.mcdenny.coronavirusapp.view.ui.countries.CountriesFragment;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -53,7 +67,6 @@ public class HomeFragment extends Fragment {
     private ImageView ugandaFlag;
     private Button btnSymptom;
     private TextView countryName;
-    private CardView symptomCard, treatmentCard, faqCard, preventionCard;
     private HomeViewModel viewModel;
     private CountriesFragment countriesFragment;
     private FragmentManager fragmentManager;
@@ -75,21 +88,22 @@ public class HomeFragment extends Fragment {
         ugCasesToday = root.findViewById(R.id.uganda_cases_today);
         ugDeathsToday = root.findViewById(R.id.uganda_deaths_today);
         ugandaFlag = root.findViewById(R.id.uganda_flag);
-        symptomCard = root.findViewById(R.id.symptom_card);
-        treatmentCard = root.findViewById(R.id.treatment_card);
-        faqCard = root.findViewById(R.id.faq_card);
-        preventionCard = root.findViewById(R.id.prevention_card);
         countryName = root.findViewById(R.id.country_name_status);
         btnSymptom = root.findViewById(R.id.btn_submit_info);
 
         btnSymptom.setOnClickListener(v -> startActivity(new Intent(getActivity(), SymptomFormActivity.class)) );
         moreCountries.setOnClickListener(v -> openCountryFragement());
-        symptomCard.setOnClickListener(v -> startActivity(new Intent(getActivity(), SymptomsActivity.class)));
-        treatmentCard.setOnClickListener(v -> startActivity(new Intent(getActivity(), TreatmentActivity.class)));
-        preventionCard.setOnClickListener(v -> startActivity(new Intent(getActivity(), PreventionActivity.class)));
+
+
 
         HomeViewModelFactory factory = new HomeViewModelFactory(this.getActivity().getApplication());
         viewModel = new ViewModelProvider(this, factory).get(HomeViewModel.class);
+
+        HospitalViewModelFactory mfactory = new HospitalViewModelFactory(this.getActivity().getApplication());
+        HospitalViewModel viewModel = new ViewModelProvider(this, mfactory).get(HospitalViewModel.class);
+        viewModel.getAllHospitals().observe(this, hospitals -> {
+            Log.d(TAG, "Number of Hospitals: "+ hospitals.size());
+        });
 
         // initializing a work manager
         covidWorkManager = WorkManager.getInstance(getActivity());
