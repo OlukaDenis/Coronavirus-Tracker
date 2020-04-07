@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Coronavirus Tracker</string>
     <string name="_000">--</string>
-    <string name="uganda_corona_status">Uganda Status</string>
+    <string name="country_corona_status">%1$s Status</string>
     <string name="recovered">Recovered</string>
     <string name="deaths">Deaths</string>
     <string name="confirmed">Confirmed</string>
@@ -37,7 +37,7 @@
     <string name="symptoms">Symptoms</string>
     <string name="prevention">Prevention</string>
     <string name="treatment">Treatment</string>
-    <string name="q_amp_a"><![CDATA[Q & A]]></string>
+    <string name="q_and_a">Self Test</string>
     <string name="symptom_1">People may be sick with the virus for 1 to 14 days before developing symptoms.
         The most common symptoms of Coronavirus disease (COVID-19) are fever, tiredness, and dry cough.
         Most people (about 80%) recover from the disease without needing special treatment. More rarely, the
@@ -75,4 +75,62 @@
     <string name="corona_treatment">Coronavirus Treatment</string>
     <string name="corona_symptoms">Coronavirus Symptoms</string>
     <string name="corona_prevention">Coronavirus Prevention</string>
+    <string name="symptom_info">If you think you have been exposed to COVID-19 and developed a fever and symptoms, submit your symptoms to the nearby hospital.</string>
+    <string name="submit_symptoms_now">Submit Symptoms now</string>
+
+    <!--  Form questions-->
+    <string name="question_1">Do you have trouble with breathing?</string>
+    <string name="question_2">Are you experiencing persistent pain or pressure in the chest?</string>
+    <string name="question_3">Do you have a high temperature? (You feel hot to touch on your chest or back)</string>
+    <string name="question_4">Do you have continuous cough?</string>
+
+    <!-- Form responses    -->
+    <string name="response_1">Yes</string>
+    <string name="response_2">No</string>
+    <string name="response_3">Sometimes</string>
+    <string name="your_name">Your name</string>
+    <string name="name">Name</string>
+    <string name="state_from">Which state do you come from?</string>
+    <string name="what_is_your_gender">What is your gender?</string>
+    <string name="nearest_hospital">Your nearest Government hospital</string>
+    <string name="state">State name</string>
+    <string name="hospital_name">Hospital name</string>
+    <string name="report_symptoms">Report Symptoms</string>
+    <string name="your_telephone_number">Your telephone number</string>
+    <string name="mobile_e_g_234">Mobile e.g. +234…</string>
+    <string name="ncdc_demo">ncdc demo</string>
+    <string name="gender">Gender</string>
+    <string name="title_activity_maps">Map</string>
+
+
+    <!-- Self test questions   -->
+    <string name="test1">Do you have cough?</string>
+    <string name="test2">Do you have cold?</string>
+    <string name="test3">Are you having body aches?</string>
+    <string name="test4">Are you having a sore  throat?</string>
+    <string name="test5">Do you have diarrhea?</string>
+    <string name="test6">Are you having headache?</string>
+    <string name="test7">Do you have fever? (Temperature 37.8 \u2103 and above)</string>
+    <string name="test8">Are you having a difficulty in breathing?</string>
+    <string name="test9"> Are you experiencing fatigue?</string>
+    <string name="test10"> Have you traveled recently in the past 14 days?</string>
+    <string name="test11">Do you have a history of traveling to an area infected with COVID-19?</string>
+    <string name="test12">Do you have direct contact with or are you taking care of positive COVID-19 patient?</string>
+    <string name="results">Results</string>
+    <string name="your_risk_is">Your risk of having COVID-19 is:</string>
+    <string name="probability">probability</string>
+    <string name="action_to_take">Action to take</string>
+
+    <!-- Results   -->
+    <string name="severe">Severe</string>
+    <string name="high">High</string>
+    <string name="medium">Medium</string>
+    <string name="low">Low</string>
+
+    <!-- Actions to take   -->
+    <string name="action_low">You might be having stress. Have enough rest and take a lot of fluids.</string>
+    <string name="action_medium">You might be having early signs. Please start distancing yourself from friends and family.</string>
+    <string name="action_high">Please see a doctor immediately. Do not panic, isolate yourself from friends and family. Visit the nearest hospital for COVID-19 blood test.</string>
+    <string name="action_severe">Do not panic, isolate yourself from friends and family. Call 0800 203 033 immediately</string>
+    <string name="re_test">Re-test</string>
 </resources>
