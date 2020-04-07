@@ -15,6 +15,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.mcdenny.coronavirusapp.R;
 import com.mcdenny.coronavirusapp.view.ui.PreventionActivity;
@@ -23,6 +25,8 @@ import com.mcdenny.coronavirusapp.view.ui.TreatmentActivity;
 import com.mcdenny.coronavirusapp.view.ui.countries.CountriesFragment;
 import com.mcdenny.coronavirusapp.view.ui.faq.FaqFragment;
 import com.mcdenny.coronavirusapp.view.ui.hospitals.HospitalActivity;
+
+import java.util.Objects;
 
 public class FactsFragment extends Fragment {
     private FactsViewModel factsViewModel;
@@ -41,7 +45,7 @@ public class FactsFragment extends Fragment {
         faqCard = root.findViewById(R.id.faq_card);
         preventionCard = root.findViewById(R.id.prevention_card);
 
-        faqCard.setOnClickListener(v -> startActivity(new Intent(getActivity(), HospitalActivity.class)) );
+        faqCard.setOnClickListener(v -> openTestFragment() );
         symptomCard.setOnClickListener(v -> startActivity(new Intent(getActivity(), SymptomsActivity.class)));
         treatmentCard.setOnClickListener(v -> startActivity(new Intent(getActivity(), TreatmentActivity.class)));
         preventionCard.setOnClickListener(v -> startActivity(new Intent(getActivity(), PreventionActivity.class)));
@@ -49,11 +53,8 @@ public class FactsFragment extends Fragment {
         return root;
     }
 
-    private void openTestFragement() {
-        faqFragment = new FaqFragment();
-        fragmentManager = getFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.nav_host_fragment, faqFragment);
-        transaction.commit();
+    private void openTestFragment() {
+        NavController navController = Navigation.findNavController(Objects.requireNonNull(getActivity()), R.id.nav_host_fragment);
+        navController.navigate(R.id.nav_faq);
     }
 }

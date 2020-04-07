@@ -16,6 +16,20 @@ public class Constants {
 
     public static final int HOSPITAL_RESULT_OK = 201;
 
+    //Covid 19 probability
+    public static final int COUGH = 90;
+    public static final int COLD = 60;
+    public static final int DIARRHEA = 60;
+    public static final int SORE_THROAT = 60;
+    public static final int BODY_ACHES = 50;
+    public static final int HEADACHE = 60;
+    public static final int FEVER = 98;
+    public static final int BREATHING_DIFFICULTY = 99;
+    public static final int FATIGUE = 50;
+    public static final int TRAVEL = 80;
+    public static final int TRAVEL_HISTORY = 98;
+    public static final int DIRECT_CONTACT = 99;
+
     public static String formatNumber(long number){
         NumberFormat formatter = new DecimalFormat("#,###");
         double num = (double) number;

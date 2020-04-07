@@ -116,5 +116,21 @@
     <string name="test10"> Have you traveled recently in the past 14 days?</string>
     <string name="test11">Do you have a history of traveling to an area infected with COVID-19?</string>
     <string name="test12">Do you have direct contact with or are you taking care of positive COVID-19 patient?</string>
+    <string name="results">Results</string>
+    <string name="your_risk_is">Your risk of having COVID-19 is:</string>
+    <string name="probability">probability</string>
+    <string name="action_to_take">Action to take</string>
 
+    <!-- Results   -->
+    <string name="severe">Severe</string>
+    <string name="high">High</string>
+    <string name="medium">Medium</string>
+    <string name="low">Low</string>
+
+    <!-- Actions to take   -->
+    <string name="action_low">You might be having stress. Have enough rest and take a lot of fluids.</string>
+    <string name="action_medium">You might be having early signs. Please start distancing yourself from friends and family.</string>
+    <string name="action_high">Please see a doctor immediately. Do not panic, isolate yourself from friends and family. Visit the nearest hospital for COVID-19 blood test.</string>
+    <string name="action_severe">Do not panic, isolate yourself from friends and family. Call 0800 203 033 immediately</string>
+    <string name="re_test">Re-test</string>
 </resources>
