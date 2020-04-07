@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "646356799626",
+    "firebase_url": "https://coronavirus-tracker-a49b4.firebaseio.com",
+    "project_id": "coronavirus-tracker-a49b4",
+    "storage_bucket": "coronavirus-tracker-a49b4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:646356799626:android:6c4007731cf7b59bf11d73",
+        "android_client_info": {
+          "package_name": "com.mcdenny.coronavirusapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "646356799626-heqaobpe74b9267ik6ce88li2gebl7th.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mcdenny.coronavirusapp",
+            "certificate_hash": "05108368d28ee56cd45242e04e2e60a511653323"
+          }
+        },
+        {
+          "client_id": "646356799626-3qa90n7rtpktue4g8nuonopp5lv6dba3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtiFlSOOq3bv3QV2kmsPXYjJ9V3xB7D3Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "646356799626-3qa90n7rtpktue4g8nuonopp5lv6dba3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
