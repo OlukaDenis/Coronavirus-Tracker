@@ -42,9 +42,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.mcdenny.coronavirusapp.Utils.Constants.NIGERIA;
-import static com.mcdenny.coronavirusapp.Utils.Constants.UPDATED;
-import static com.mcdenny.coronavirusapp.Utils.Constants.formatNumber;
+import static com.mcdenny.coronavirusapp.utils.Constants.NIGERIA;
+import static com.mcdenny.coronavirusapp.utils.Constants.UPDATED;
+import static com.mcdenny.coronavirusapp.utils.Constants.formatNumber;
 
 public class HomeFragment extends Fragment {
     private WorkManager covidWorkManager;

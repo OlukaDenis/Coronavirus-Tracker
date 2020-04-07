@@ -133,4 +133,5 @@
     <string name="action_high">Please see a doctor immediately. Do not panic, isolate yourself from friends and family. Visit the nearest hospital for COVID-19 blood test.</string>
     <string name="action_severe">Do not panic, isolate yourself from friends and family. Call 0800 203 033 immediately</string>
     <string name="re_test">Re-test</string>
+    <string name="locate_hospital">Locate Hospital</string>
 </resources>

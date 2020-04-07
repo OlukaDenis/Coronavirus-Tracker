@@ -21,6 +21,11 @@
             android:id="@+id/nav_facts"
             android:icon="@drawable/ic_facts"
             android:title="@string/covid19_facts"/>
+
+        <item
+            android:id="@+id/nav_hospital_maps"
+            android:icon="@drawable/ic_map"
+            android:title="@string/locate_hospital"/>
     </group>
 
     <item android:title="@string/developer">

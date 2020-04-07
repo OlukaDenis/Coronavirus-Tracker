@@ -12,13 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mcdenny.coronavirusapp.R;
 import com.mcdenny.coronavirusapp.model.Hospital;
-import com.mcdenny.coronavirusapp.view.interfaces.ItemClickListener;
 import com.mcdenny.coronavirusapp.view.viewholder.HospitalViewHolder;
 
 import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
-import static com.mcdenny.coronavirusapp.Utils.Constants.HOSPITAL_RESULT_OK;
 
 public class HospitalAdapter extends RecyclerView.Adapter<HospitalViewHolder> {
     private Context context;

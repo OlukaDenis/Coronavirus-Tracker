@@ -9,7 +9,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -18,18 +17,18 @@ import androidx.fragment.app.Fragment;
 import com.mcdenny.coronavirusapp.R;
 import com.mcdenny.coronavirusapp.model.Test;
 
-import static com.mcdenny.coronavirusapp.Utils.Constants.BODY_ACHES;
-import static com.mcdenny.coronavirusapp.Utils.Constants.BREATHING_DIFFICULTY;
-import static com.mcdenny.coronavirusapp.Utils.Constants.COLD;
-import static com.mcdenny.coronavirusapp.Utils.Constants.COUGH;
-import static com.mcdenny.coronavirusapp.Utils.Constants.DIARRHEA;
-import static com.mcdenny.coronavirusapp.Utils.Constants.DIRECT_CONTACT;
-import static com.mcdenny.coronavirusapp.Utils.Constants.FATIGUE;
-import static com.mcdenny.coronavirusapp.Utils.Constants.FEVER;
-import static com.mcdenny.coronavirusapp.Utils.Constants.HEADACHE;
-import static com.mcdenny.coronavirusapp.Utils.Constants.SORE_THROAT;
-import static com.mcdenny.coronavirusapp.Utils.Constants.TRAVEL;
-import static com.mcdenny.coronavirusapp.Utils.Constants.TRAVEL_HISTORY;
+import static com.mcdenny.coronavirusapp.utils.Constants.BODY_ACHES;
+import static com.mcdenny.coronavirusapp.utils.Constants.BREATHING_DIFFICULTY;
+import static com.mcdenny.coronavirusapp.utils.Constants.COLD;
+import static com.mcdenny.coronavirusapp.utils.Constants.COUGH;
+import static com.mcdenny.coronavirusapp.utils.Constants.DIARRHEA;
+import static com.mcdenny.coronavirusapp.utils.Constants.DIRECT_CONTACT;
+import static com.mcdenny.coronavirusapp.utils.Constants.FATIGUE;
+import static com.mcdenny.coronavirusapp.utils.Constants.FEVER;
+import static com.mcdenny.coronavirusapp.utils.Constants.HEADACHE;
+import static com.mcdenny.coronavirusapp.utils.Constants.SORE_THROAT;
+import static com.mcdenny.coronavirusapp.utils.Constants.TRAVEL;
+import static com.mcdenny.coronavirusapp.utils.Constants.TRAVEL_HISTORY;
 
 public class FaqFragment extends Fragment {
     private TextView test_question, probableText, actionText;

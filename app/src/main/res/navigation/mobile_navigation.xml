@@ -35,4 +35,8 @@
         android:label="Covid 19 Facts"
         tools:layout="@layout/fragment_facts" />
 
+    <activity
+        android:id="@+id/nav_hospital_maps"
+        android:name="com.mcdenny.coronavirusapp.view.ui.maps.MapsActivity"/>
+
 </navigation>
