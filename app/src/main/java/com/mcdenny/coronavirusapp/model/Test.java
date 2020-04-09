@@ -13,6 +13,7 @@ public class Test {
     private String travelled;
     private String travel_history;
     private String direct_contact;
+    private String result;
 
     public Test() {
     }
@@ -126,6 +127,14 @@ public class Test {
 
     public void setDirect_contact(String direct_contact) {
         this.direct_contact = direct_contact;
+    }
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
     }
 
     public String info(){

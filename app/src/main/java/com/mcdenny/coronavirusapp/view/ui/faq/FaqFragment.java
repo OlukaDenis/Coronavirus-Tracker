@@ -13,9 +13,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.mcdenny.coronavirusapp.R;
 import com.mcdenny.coronavirusapp.model.Test;
+import com.mcdenny.coronavirusapp.view.ui.hospitals.HospitalViewModel;
+import com.mcdenny.coronavirusapp.view.ui.hospitals.HospitalViewModelFactory;
 
 import static com.mcdenny.coronavirusapp.utils.Constants.BODY_ACHES;
 import static com.mcdenny.coronavirusapp.utils.Constants.BREATHING_DIFFICULTY;
@@ -39,7 +42,7 @@ public class FaqFragment extends Fragment {
     private int probability, selectedTests = 0;
     private static int cough, cold, diarrhea, sore_throat, body_aches, headache, fever, breathing, fatigue, travel, travel_history, direct_contact;
     private CardView resultsCard, testCard;
-    private FaqViewModel faqViewModel;
+    private FaqViewModel viewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
@@ -60,6 +63,9 @@ public class FaqFragment extends Fragment {
 
         self_test = new Test();
         res = getResources();
+
+        FaqViewModelFactory mfactory = new FaqViewModelFactory(getActivity().getApplication());
+        viewModel = new ViewModelProvider(this, mfactory).get(FaqViewModel.class);
 
         TestOne();
         return root;
@@ -292,21 +298,27 @@ public class FaqFragment extends Fragment {
 
         if(probability >= 75){
             probableText.setText(res.getString(R.string.severe));
+            self_test.setResult(res.getString(R.string.severe));
             probableText.setTextColor(res.getColor(R.color.red));
             actionText.setText(res.getString(R.string.action_severe));
-        } else if(probability >= 60 && probability < 75){
+        } else if(probability >= 65){
             probableText.setText(res.getString(R.string.high));
+            self_test.setResult(res.getString(R.string.high));
             probableText.setTextColor(res.getColor(R.color.red));
             actionText.setText(res.getString(R.string.action_high));
-        } else if(probability >= 50 && probability < 60) {
+        } else if(probability >= 50) {
             probableText.setText(res.getString(R.string.medium));
+            self_test.setResult(res.getString(R.string.medium));
             probableText.setTextColor(res.getColor(R.color.orange));
             actionText.setText(res.getString(R.string.action_medium));
         }else {
             probableText.setText(res.getString(R.string.low));
+            self_test.setResult(res.getString(R.string.low));
             probableText.setTextColor(res.getColor(R.color.green));
             actionText.setText(res.getString(R.string.action_low));
         }
+
+        viewModel.saveTests(self_test);
 
         btn_reset.setOnClickListener(v -> {
             probability = 0;

@@ -26,6 +26,11 @@
             android:id="@+id/nav_hospital_maps"
             android:icon="@drawable/ic_map"
             android:title="@string/locate_hospital"/>
+
+        <item
+            android:id="@+id/nav_donate"
+            android:icon="@drawable/ic_payment"
+            android:title="@string/donate"/>
     </group>
 
     <item android:title="@string/developer">
