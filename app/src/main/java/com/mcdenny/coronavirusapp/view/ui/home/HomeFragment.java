@@ -42,28 +42,25 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.mcdenny.coronavirusapp.Utils.Constants.NIGERIA;
-import static com.mcdenny.coronavirusapp.Utils.Constants.UPDATED;
-import static com.mcdenny.coronavirusapp.Utils.Constants.formatNumber;
+import static com.mcdenny.coronavirusapp.utils.Constants.NIGERIA;
+import static com.mcdenny.coronavirusapp.utils.Constants.UPDATED;
+import static com.mcdenny.coronavirusapp.utils.Constants.formatNumber;
 
 public class HomeFragment extends Fragment {
     private WorkManager covidWorkManager;
 
-    private TextView tvCases, tvDeaths, tvRecovered, ugCases, ugDeaths, ugRecovered, ugCasesToday, ugDeathsToday, moreCountries;
+    private TextView tvCases, tvDeaths, tvRecovered, ugCases, ugDeaths, ugRecovered, ugCasesToday, ugDeathsToday, moreCountries, moreFacts;
     private ImageView ugandaFlag;
-    private Button btnSymptom;
+    private Button btnSymptom, btnTest, btn_donate;
     private TextView countryName;
     private HomeViewModel viewModel;
-    private CountriesFragment countriesFragment;
-    private FragmentManager fragmentManager;
-    private Covid covid;
     private static final String TAG = "HomeFragment";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
-        //reference
+        //view reference
         tvCases = root.findViewById(R.id.cases);
         tvDeaths = root.findViewById(R.id.deaths);
         tvRecovered = root.findViewById(R.id.recovered);
@@ -71,15 +68,20 @@ public class HomeFragment extends Fragment {
         ugDeaths = root.findViewById(R.id.uganda_deaths);
         ugRecovered = root.findViewById(R.id.uganda_recovered);
         moreCountries = root.findViewById(R.id.more_countries);
+        moreFacts = root.findViewById(R.id.more_facts);
         ugCasesToday = root.findViewById(R.id.uganda_cases_today);
         ugDeathsToday = root.findViewById(R.id.uganda_deaths_today);
         ugandaFlag = root.findViewById(R.id.uganda_flag);
         countryName = root.findViewById(R.id.country_name_status);
         btnSymptom = root.findViewById(R.id.btn_submit_info);
+        btnTest = root.findViewById(R.id.btn_self_test);
+        btn_donate = root.findViewById(R.id.btn_donate);
 
         btnSymptom.setOnClickListener(v -> startActivity(new Intent(getActivity(), SymptomFormActivity.class)) );
         moreCountries.setOnClickListener(v -> openCountryFragment());
-
+        moreFacts.setOnClickListener(v -> openFactsFragment());
+        btnTest.setOnClickListener(v -> openFaqFragment());
+        btn_donate.setOnClickListener(v -> openDonateFragment());
 
 
         HomeViewModelFactory factory = new HomeViewModelFactory(this.getActivity().getApplication());
@@ -121,6 +123,21 @@ public class HomeFragment extends Fragment {
     private void openCountryFragment() {
         NavController navController = Navigation.findNavController(Objects.requireNonNull(getActivity()), R.id.nav_host_fragment);
         navController.navigate(R.id.nav_countries);
+    }
+
+    private void openFaqFragment() {
+        NavController navController = Navigation.findNavController(Objects.requireNonNull(getActivity()), R.id.nav_host_fragment);
+        navController.navigate(R.id.nav_faq);
+    }
+
+    private void openFactsFragment() {
+        NavController navController = Navigation.findNavController(Objects.requireNonNull(getActivity()), R.id.nav_host_fragment);
+        navController.navigate(R.id.nav_facts);
+    }
+
+    private void openDonateFragment() {
+        NavController navController = Navigation.findNavController(Objects.requireNonNull(getActivity()), R.id.nav_host_fragment);
+        navController.navigate(R.id.nav_donate);
     }
 
 

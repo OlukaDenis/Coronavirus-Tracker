@@ -1,4 +1,6 @@
-package com.mcdenny.coronavirusapp.Utils;
+package com.mcdenny.coronavirusapp.utils;
+
+import com.google.android.gms.maps.model.LatLng;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -29,6 +31,14 @@ public class Constants {
     public static final int TRAVEL = 80;
     public static final int TRAVEL_HISTORY = 98;
     public static final int DIRECT_CONTACT = 99;
+
+    //Default markers
+    public static final LatLng JOS_HOSPITAL = new LatLng(9.906647, 8.954732);
+
+    public static final LatLng PLATEAU_SPECIALIST = new LatLng(9.896261, 8.884068);
+
+
+    //Util methods
 
     public static String formatNumber(long number){
         NumberFormat formatter = new DecimalFormat("#,###");

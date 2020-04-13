@@ -35,4 +35,17 @@
         android:label="Covid 19 Facts"
         tools:layout="@layout/fragment_facts" />
 
+    <fragment
+        android:id="@+id/nav_hospital_maps"
+        android:name="com.mcdenny.coronavirusapp.view.ui.maps.MapsFragment"
+        android:label="Testing Centers"
+        tools:layout="@layout/fragment_maps" />
+
+    <fragment
+        android:id="@+id/nav_donate"
+        android:name="com.mcdenny.coronavirusapp.view.ui.donate.DonateFragment"
+        android:label="Donate"
+        tools:layout="@layout/fragment_donate" />
+
+
 </navigation>
