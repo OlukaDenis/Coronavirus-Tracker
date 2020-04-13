@@ -13,7 +13,7 @@ import com.mcdenny.coronavirusapp.model.CountryInfo;
 import com.squareup.picasso.Picasso;
 
 
-import static com.mcdenny.coronavirusapp.utils.Constants.formatNumber;
+import static com.mcdenny.coronavirusapp.utils.Config.formatNumber;
 
 public class CountriesViewHolder extends RecyclerView.ViewHolder {
     private static final String TAG = "CountriesViewHolder";
