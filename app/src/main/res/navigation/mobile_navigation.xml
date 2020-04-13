@@ -25,7 +25,7 @@
 
     <fragment
         android:id="@+id/nav_faq"
-        android:name="com.mcdenny.coronavirusapp.view.ui.faq.FaqFragment"
+        android:name="com.mcdenny.coronavirusapp.view.ui.self_test.SelfTestFragment"
         android:label="Self Test"
         tools:layout="@layout/fragment_faq" />
 
@@ -43,9 +43,22 @@
 
     <fragment
         android:id="@+id/nav_donate"
-        android:name="com.mcdenny.coronavirusapp.view.ui.donate.DonateFragment"
+        android:name="com.mcdenny.coronavirusapp.view.ui.donate.DonationFragment"
         android:label="Donate"
-        tools:layout="@layout/fragment_donate" />
+        tools:layout="@layout/fragment_donation" >
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_material_donate"
+        android:name="com.mcdenny.coronavirusapp.view.ui.donate.MaterialDonationFragment"
+        android:label="Material Donation"
+        tools:layout="@layout/fragment_material_donation" />
+
+    <fragment
+        android:id="@+id/nav_funds_donate"
+        android:name="com.mcdenny.coronavirusapp.view.ui.donate.FundsDonationFragment"
+        android:label="Donate Funds"
+        tools:layout="@layout/fragment_funds_donation" />
 
 
 </navigation>

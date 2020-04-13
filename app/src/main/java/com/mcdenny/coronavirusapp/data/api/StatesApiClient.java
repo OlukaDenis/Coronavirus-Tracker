@@ -5,7 +5,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.mcdenny.coronavirusapp.utils.Constants.NIGERIAN_STATES_URL;
+import static com.mcdenny.coronavirusapp.utils.Config.NIGERIAN_STATES_URL;
 
 public class StatesApiClient {
     // Create Logger

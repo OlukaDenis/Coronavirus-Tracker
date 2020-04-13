@@ -1,22 +1,19 @@
-package com.mcdenny.coronavirusapp.view.ui.faq;
+package com.mcdenny.coronavirusapp.view.ui.self_test;
 
 import android.app.Application;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.mcdenny.coronavirusapp.data.repository.CovidRepository;
-import com.mcdenny.coronavirusapp.model.Form;
 import com.mcdenny.coronavirusapp.model.Test;
 
-public class FaqViewModel extends ViewModel {
+public class SelfTestViewModel extends ViewModel {
 
     private CovidRepository repository;
 
-    public FaqViewModel(Application application) {
+    public SelfTestViewModel(Application application) {
        repository = new CovidRepository(application);
     }
 

@@ -6,12 +6,12 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
+import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
@@ -26,7 +26,6 @@ import android.widget.SeekBar;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
@@ -34,11 +33,12 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.mcdenny.coronavirusapp.R;
 import com.mcdenny.coronavirusapp.view.ui.symptom_form.SymptomFormActivity;
 
-import static com.mcdenny.coronavirusapp.utils.Constants.JOS_HOSPITAL;
-import static com.mcdenny.coronavirusapp.utils.Constants.PLATEAU_SPECIALIST;
+import static com.mcdenny.coronavirusapp.utils.Config.JOS_HOSPITAL;
+import static com.mcdenny.coronavirusapp.utils.Config.PLATEAU_SPECIALIST;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -53,6 +53,7 @@ public class MapsFragment extends Fragment implements
     private GoogleMap mMap;
     private Marker plateau, josHospital;
     private static final int REQUEST_LOCATION_PERMISSION = 1;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,11 +61,21 @@ public class MapsFragment extends Fragment implements
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_maps, container, false);
 
+        //Init firebase analytics
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(getActivity());
+        mFirebaseAnalytics.setCurrentScreen(getActivity(), this.getClass().getSimpleName(), this.getClass().getSimpleName());
+
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        Button btnSymptom = root.findViewById(R.id.request_test);
-        btnSymptom.setOnClickListener(v -> startActivity(new Intent(getActivity(), SymptomFormActivity.class)) );
+        CardView btnSymptom = root.findViewById(R.id.request_test);
+        btnSymptom.setOnClickListener(v -> {
+            startActivity(new Intent(getActivity(), SymptomFormActivity.class));
+
+            Bundle bundle = new Bundle();
+            bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "Open Symptom Form");
+            mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.VIEW_ITEM, bundle);
+        });
 
         return root;
     }
