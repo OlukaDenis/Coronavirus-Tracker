@@ -10,7 +10,7 @@
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="4dp"
+        android:layout_margin="6dp"
         tools:context=".view.MainActivity">
 
         <androidx.cardview.widget.CardView
@@ -169,7 +169,7 @@
             android:id="@+id/uganda_stats_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="8dp"
             app:cardCornerRadius="4dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -330,15 +330,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
-            app:cardCornerRadius="4dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="0dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/uganda_stats_card">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:orientation="vertical"
+                android:layout_height="160dp"
                 android:gravity="center_vertical|center_horizontal">
 
                 <TextView
@@ -347,19 +347,48 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorPrimaryDark"
                     android:text="@string/symptom_info"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
                     android:gravity="center"/>
 
-                <Button
-                    android:id="@+id/btn_submit_info"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="16dp"
                     android:layout_below="@+id/symp_txt_info"
-                    android:layout_centerInParent="true"
-                    android:background="@drawable/button_background"
-                    android:textColor="@android:color/white"
-                    android:padding="16dp"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/submit_symptoms_now"/>
+                    android:weightSum="10">
+
+                    <Button
+                        android:id="@+id/btn_self_test"
+                        android:layout_width="0dp"
+                        android:layout_weight="5"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/button_background"
+                        android:textColor="@android:color/white"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:letterSpacing="0.01"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:text="@string/self_test"/>
+
+                    <Button
+                        android:id="@+id/btn_submit_info"
+                        android:layout_width="0dp"
+                        android:layout_weight="5"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/button_background"
+                        android:paddingTop="10dp"
+                        android:letterSpacing="0.01"
+                        android:paddingBottom="10dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:text="@string/submit_symptoms_now"
+                        android:textColor="@android:color/white" />
+
+                </LinearLayout>
+
 
 
             </RelativeLayout>
@@ -367,14 +396,146 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/recent_news_card"
+            android:id="@+id/emergency_call_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            app:cardCornerRadius="4dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="0dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/symptom_form_card">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="@color/green_shade"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/call_phone"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="7"
+                    android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/report_suspect"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="18sp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/call_phones"
+                        android:textColor="@color/text_blackish" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/emergency_numbers"
+                        android:paddingTop="8dp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:textSize="18sp"
+                        android:textColor="@color/colorPrimaryDark" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/emergency_numbers"
+                        android:paddingTop="8dp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:textSize="18sp"
+                        android:textColor="@color/colorPrimaryDark" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/donate_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:cardCornerRadius="10dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/emergency_call_card">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:orientation="horizontal">
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="7"
+                    android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/fight_covid"
+                        android:textStyle="bold"
+                        android:paddingStart="16dp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="18sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/donations"
+                        android:paddingStart="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:textColor="@color/text_blackish" />
+
+                    <Button
+                        android:id="@+id/btn_donate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/button_background"
+                        android:textColor="@android:color/white"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:paddingEnd="24dp"
+                        android:paddingStart="24dp"
+                        android:letterSpacing="0.01"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:text="@string/donate_now"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/donate"/>
+
+
+            </LinearLayout>
 
         </androidx.cardview.widget.CardView>
 
@@ -385,7 +546,7 @@
             app:cardCornerRadius="4dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/recent_news_card">
+            app:layout_constraintTop_toBottomOf="@id/donate_card">
 
             <LinearLayout
                 android:layout_width="match_parent"

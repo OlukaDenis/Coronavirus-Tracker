@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.mcdenny.coronavirusapp.R;
 import com.mcdenny.coronavirusapp.data.local.LocalDataSource;
 import com.mcdenny.coronavirusapp.model.Form;
@@ -53,12 +54,16 @@ public class SymptomFormActivity extends AppCompatActivity {
     private  SymptomFormViewModel viewModel;
     private static final int HOSPITAL_REQUEST_CODE = 100;
 
+    private FirebaseAnalytics mFirebaseAnalytics;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_symptom_form);
 
         builder = new AlertDialog.Builder(this);
+        //Init firebase analytics
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         SymptomFormViewModelFactory factory = new SymptomFormViewModelFactory(this.getApplication());
         viewModel = new ViewModelProvider(this, factory).get(SymptomFormViewModel.class);

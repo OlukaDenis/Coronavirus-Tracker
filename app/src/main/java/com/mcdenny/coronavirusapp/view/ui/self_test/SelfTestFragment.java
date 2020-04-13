@@ -1,4 +1,4 @@
-package com.mcdenny.coronavirusapp.view.ui.faq;
+package com.mcdenny.coronavirusapp.view.ui.self_test;
 
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -9,29 +9,30 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.mcdenny.coronavirusapp.R;
 import com.mcdenny.coronavirusapp.model.Test;
 
-import static com.mcdenny.coronavirusapp.Utils.Constants.BODY_ACHES;
-import static com.mcdenny.coronavirusapp.Utils.Constants.BREATHING_DIFFICULTY;
-import static com.mcdenny.coronavirusapp.Utils.Constants.COLD;
-import static com.mcdenny.coronavirusapp.Utils.Constants.COUGH;
-import static com.mcdenny.coronavirusapp.Utils.Constants.DIARRHEA;
-import static com.mcdenny.coronavirusapp.Utils.Constants.DIRECT_CONTACT;
-import static com.mcdenny.coronavirusapp.Utils.Constants.FATIGUE;
-import static com.mcdenny.coronavirusapp.Utils.Constants.FEVER;
-import static com.mcdenny.coronavirusapp.Utils.Constants.HEADACHE;
-import static com.mcdenny.coronavirusapp.Utils.Constants.SORE_THROAT;
-import static com.mcdenny.coronavirusapp.Utils.Constants.TRAVEL;
-import static com.mcdenny.coronavirusapp.Utils.Constants.TRAVEL_HISTORY;
+import static com.mcdenny.coronavirusapp.utils.Config.BODY_ACHES;
+import static com.mcdenny.coronavirusapp.utils.Config.BREATHING_DIFFICULTY;
+import static com.mcdenny.coronavirusapp.utils.Config.COLD;
+import static com.mcdenny.coronavirusapp.utils.Config.COUGH;
+import static com.mcdenny.coronavirusapp.utils.Config.DIARRHEA;
+import static com.mcdenny.coronavirusapp.utils.Config.DIRECT_CONTACT;
+import static com.mcdenny.coronavirusapp.utils.Config.FATIGUE;
+import static com.mcdenny.coronavirusapp.utils.Config.FEVER;
+import static com.mcdenny.coronavirusapp.utils.Config.HEADACHE;
+import static com.mcdenny.coronavirusapp.utils.Config.SORE_THROAT;
+import static com.mcdenny.coronavirusapp.utils.Config.TRAVEL;
+import static com.mcdenny.coronavirusapp.utils.Config.TRAVEL_HISTORY;
 
-public class FaqFragment extends Fragment {
+public class SelfTestFragment extends Fragment {
     private TextView test_question, probableText, actionText;
     private Button btnYes, btnNo, btn_reset;
     private Test self_test;
@@ -40,11 +41,17 @@ public class FaqFragment extends Fragment {
     private int probability, selectedTests = 0;
     private static int cough, cold, diarrhea, sore_throat, body_aches, headache, fever, breathing, fatigue, travel, travel_history, direct_contact;
     private CardView resultsCard, testCard;
-    private FaqViewModel faqViewModel;
+    private SelfTestViewModel viewModel;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
         View root = inflater.inflate(R.layout.fragment_faq, container, false);
+
+        //Init firebase analytics
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(getActivity());
+        mFirebaseAnalytics.setCurrentScreen(getActivity(), this.getClass().getSimpleName(), this.getClass().getSimpleName());
+
 
         btnYes = root.findViewById(R.id.btn_yes);
         btnNo = root.findViewById(R.id.btn_no);
@@ -61,6 +68,9 @@ public class FaqFragment extends Fragment {
 
         self_test = new Test();
         res = getResources();
+
+        SelfTestViewModelFactory mfactory = new SelfTestViewModelFactory(getActivity().getApplication());
+        viewModel = new ViewModelProvider(this, mfactory).get(SelfTestViewModel.class);
 
         TestOne();
         return root;
@@ -293,21 +303,31 @@ public class FaqFragment extends Fragment {
 
         if(probability >= 75){
             probableText.setText(res.getString(R.string.severe));
+            self_test.setResult(res.getString(R.string.severe));
             probableText.setTextColor(res.getColor(R.color.red));
             actionText.setText(res.getString(R.string.action_severe));
-        } else if(probability >= 60 && probability < 75){
+        } else if(probability >= 65){
             probableText.setText(res.getString(R.string.high));
+            self_test.setResult(res.getString(R.string.high));
             probableText.setTextColor(res.getColor(R.color.red));
             actionText.setText(res.getString(R.string.action_high));
-        } else if(probability >= 50 && probability < 60) {
+        } else if(probability >= 50) {
             probableText.setText(res.getString(R.string.medium));
+            self_test.setResult(res.getString(R.string.medium));
             probableText.setTextColor(res.getColor(R.color.orange));
             actionText.setText(res.getString(R.string.action_medium));
         }else {
             probableText.setText(res.getString(R.string.low));
+            self_test.setResult(res.getString(R.string.low));
             probableText.setTextColor(res.getColor(R.color.green));
             actionText.setText(res.getString(R.string.action_low));
         }
+
+        viewModel.saveTests(self_test);
+
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "Submit symptom form");
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
 
         btn_reset.setOnClickListener(v -> {
             probability = 0;

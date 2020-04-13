@@ -5,7 +5,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.mcdenny.coronavirusapp.Utils.Constants.BASE_URL;
+import static com.mcdenny.coronavirusapp.utils.Config.BASE_URL;
 
 public class ApiClient {
     private static final int REQUEST_TIMEOUT = 60;

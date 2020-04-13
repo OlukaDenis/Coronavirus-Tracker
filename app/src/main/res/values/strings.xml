@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Coronavirus Tracker</string>
+    <string name="app_name">Platu-AID</string>
     <string name="_000">--</string>
     <string name="country_corona_status">%1$s Status</string>
     <string name="recovered">Recovered</string>
@@ -26,9 +26,9 @@
     <string name="menu_send">Send</string>
     <string name="report_bug">Report Bug</string>
     <string name="developer">Developer</string>
-    <string name="covid19_facts">Covid19 Facts</string>
+    <string name="covid19_facts">COVID-19 Facts</string>
     <string name="countries">Countries Stats</string>
-    <string name="news">Covid19 News</string>
+    <string name="news">COVID-19 News</string>
     <string name="today"> %1$d  today</string>
 
     <!--Corona facts-->
@@ -70,13 +70,13 @@
     <string name="medical_1">If you develop a fever, cough, and have difficulty breathing, promptly seek medical care. Call in advance and tell your health provider of any recent travel or recent contact with travelers.</string>
     <string name="feedback">Feedback</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="corona_treatment">Coronavirus Treatment</string>
     <string name="corona_symptoms">Coronavirus Symptoms</string>
     <string name="corona_prevention">Coronavirus Prevention</string>
-    <string name="symptom_info">If you think you have been exposed to COVID-19 and developed a fever and symptoms, submit your symptoms to the nearby hospital.</string>
-    <string name="submit_symptoms_now">Submit Symptoms now</string>
+    <string name="symptom_info">If you think you have been exposed to COVID-19 and developed a fever and symptoms, submit your symptoms
+        to the nearby hospital or perform a self-test.</string>
+    <string name="submit_symptoms_now">Submit Form</string>
 
     <!--  Form questions-->
     <string name="question_1">Do you have trouble with breathing?</string>
@@ -133,4 +133,32 @@
     <string name="action_high">Please see a doctor immediately. Do not panic, isolate yourself from friends and family. Visit the nearest hospital for COVID-19 blood test.</string>
     <string name="action_severe">Do not panic, isolate yourself from friends and family. Call 0800 203 033 immediately</string>
     <string name="re_test">Re-test</string>
+    <string name="locate_hospital">Locate Testing Centers</string>
+    <string name="request_a_test">Request A test</string>
+    <string name="self_test">Self test</string>
+
+    <!--    Emergency numbers-->
+    <string name="emergency_numbers">07032864444, 08035422711</string>
+    <string name="emergency_numbers_2">08065486416, 08035779917 </string>
+    <string name="report_suspect">Report COVID-19 Suspect</string>
+    <string name="call_phones">Please call these emergency numbers</string>
+
+    <string name="donations">The world has never faced a crisis like COVID-19.
+        It\'s never been more urgent to support the global response. </string>
+    <string name="donate_now">Donate now</string>
+    <string name="fight_covid">Let\'s fight COVID-19 together</string>
+    <string name="amount">Amount to donate</string>
+    <string name="donate">Donate</string>
+    <string name="payment_successful">Payment %1$s!</string>
+    <string name="payment_failed">Payment %1$s!</string>
+    <string name="btn_success">Continue</string>
+    <string name="btn_fail">Try Again</string>
+    <string name="payment_amount"> Amount donated:  $%1$s</string>
+    <string name="or">OR</string>
+    <string name="donate_funds">Donate Funds</string>
+    <string name="donate_materials">Donate Materials</string>
+    <string name="type">Type</string>
+    <string name="quantity">Quantity</string>
+    <string name="contact">Contact</string>
+    <string name="description">Description</string>
 </resources>

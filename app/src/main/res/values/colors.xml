@@ -10,4 +10,6 @@
     <color name="orange">#ff8c1a</color>
     <color name="whitish">#F8F8F8</color>
     <color name="accent_tint">#FFF7BC</color>
+    <color name="green_shade">#F5FFF9</color>
+    <color name="yellow_shade">#FFF9E5</color>
 </resources>

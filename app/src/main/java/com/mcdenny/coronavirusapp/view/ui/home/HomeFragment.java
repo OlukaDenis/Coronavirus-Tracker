@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -22,6 +21,7 @@ import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.mcdenny.coronavirusapp.R;
 import com.mcdenny.coronavirusapp.data.api.ApiClient;
 import com.mcdenny.coronavirusapp.data.api.ApiService;
@@ -32,7 +32,6 @@ import com.mcdenny.coronavirusapp.model.Covid;
 import com.mcdenny.coronavirusapp.view.ui.hospitals.HospitalViewModel;
 import com.mcdenny.coronavirusapp.view.ui.hospitals.HospitalViewModelFactory;
 import com.mcdenny.coronavirusapp.view.ui.symptom_form.SymptomFormActivity;
-import com.mcdenny.coronavirusapp.view.ui.countries.CountriesFragment;
 import com.squareup.picasso.Picasso;
 
 import java.util.Objects;
@@ -42,28 +41,30 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.mcdenny.coronavirusapp.Utils.Constants.NIGERIA;
-import static com.mcdenny.coronavirusapp.Utils.Constants.UPDATED;
-import static com.mcdenny.coronavirusapp.Utils.Constants.formatNumber;
+import static com.mcdenny.coronavirusapp.utils.Config.NIGERIA;
+import static com.mcdenny.coronavirusapp.utils.Config.UPDATED;
+import static com.mcdenny.coronavirusapp.utils.Config.formatNumber;
 
 public class HomeFragment extends Fragment {
     private WorkManager covidWorkManager;
 
-    private TextView tvCases, tvDeaths, tvRecovered, ugCases, ugDeaths, ugRecovered, ugCasesToday, ugDeathsToday, moreCountries;
+    private TextView tvCases, tvDeaths, tvRecovered, ugCases, ugDeaths, ugRecovered, ugCasesToday, ugDeathsToday, moreCountries, moreFacts;
     private ImageView ugandaFlag;
-    private Button btnSymptom;
+    private Button btnSymptom, btnTest, btn_donate;
     private TextView countryName;
     private HomeViewModel viewModel;
-    private CountriesFragment countriesFragment;
-    private FragmentManager fragmentManager;
-    private Covid covid;
     private static final String TAG = "HomeFragment";
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
-        //reference
+        //Init firebase analytics
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(getActivity());
+        mFirebaseAnalytics.setCurrentScreen(getActivity(), this.getClass().getSimpleName(), this.getClass().getSimpleName());
+
+        //view reference
         tvCases = root.findViewById(R.id.cases);
         tvDeaths = root.findViewById(R.id.deaths);
         tvRecovered = root.findViewById(R.id.recovered);
@@ -71,15 +72,20 @@ public class HomeFragment extends Fragment {
         ugDeaths = root.findViewById(R.id.uganda_deaths);
         ugRecovered = root.findViewById(R.id.uganda_recovered);
         moreCountries = root.findViewById(R.id.more_countries);
+        moreFacts = root.findViewById(R.id.more_facts);
         ugCasesToday = root.findViewById(R.id.uganda_cases_today);
         ugDeathsToday = root.findViewById(R.id.uganda_deaths_today);
         ugandaFlag = root.findViewById(R.id.uganda_flag);
         countryName = root.findViewById(R.id.country_name_status);
         btnSymptom = root.findViewById(R.id.btn_submit_info);
+        btnTest = root.findViewById(R.id.btn_self_test);
+        btn_donate = root.findViewById(R.id.btn_donate);
 
         btnSymptom.setOnClickListener(v -> startActivity(new Intent(getActivity(), SymptomFormActivity.class)) );
         moreCountries.setOnClickListener(v -> openCountryFragment());
-
+        moreFacts.setOnClickListener(v -> openFactsFragment());
+        btnTest.setOnClickListener(v -> openSelfTestFragment());
+        btn_donate.setOnClickListener(v -> openDonateFragment());
 
 
         HomeViewModelFactory factory = new HomeViewModelFactory(this.getActivity().getApplication());
@@ -121,6 +127,37 @@ public class HomeFragment extends Fragment {
     private void openCountryFragment() {
         NavController navController = Navigation.findNavController(Objects.requireNonNull(getActivity()), R.id.nav_host_fragment);
         navController.navigate(R.id.nav_countries);
+
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "View COuntry Stats");
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.VIEW_ITEM, bundle);
+    }
+
+    private void openSelfTestFragment() {
+        NavController navController = Navigation.findNavController(Objects.requireNonNull(getActivity()), R.id.nav_host_fragment);
+        navController.navigate(R.id.nav_faq);
+
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "Start self-Test");
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.VIEW_ITEM, bundle);
+    }
+
+    private void openFactsFragment() {
+        NavController navController = Navigation.findNavController(Objects.requireNonNull(getActivity()), R.id.nav_host_fragment);
+        navController.navigate(R.id.nav_facts);
+
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "View Covid Facts");
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.VIEW_ITEM, bundle);
+    }
+
+    private void openDonateFragment() {
+        NavController navController = Navigation.findNavController(Objects.requireNonNull(getActivity()), R.id.nav_host_fragment);
+        navController.navigate(R.id.nav_donate);
+
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "Start donation");
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.VIEW_ITEM, bundle);
     }
 
 

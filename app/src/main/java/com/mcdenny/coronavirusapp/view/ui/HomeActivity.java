@@ -8,6 +8,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.mcdenny.coronavirusapp.R;
 
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -20,6 +21,7 @@ import android.view.Menu;
 public class HomeActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,8 @@ public class HomeActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //Init firebase analytics
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -35,7 +39,7 @@ public class HomeActivity extends AppCompatActivity {
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_countries, R.id.nav_feedback,
-                R.id.nav_facts, R.id.nav_faq)
+                R.id.nav_facts, R.id.nav_faq, R.id.nav_hospital_maps, R.id.nav_donate)
                 .setDrawerLayout(drawer)
                 .build();
 
