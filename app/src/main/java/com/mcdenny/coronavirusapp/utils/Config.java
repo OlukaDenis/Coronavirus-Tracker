@@ -1,9 +1,20 @@
 package com.mcdenny.coronavirusapp.utils;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.LocationManager;
+
+import androidx.core.app.ActivityCompat;
+
 import com.google.android.gms.maps.model.LatLng;
 
+import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.Date;
+import java.util.UUID;
 
 public class Config {
     public Config() {
@@ -40,6 +51,10 @@ public class Config {
 
     public static final LatLng PLATEAU_SPECIALIST = new LatLng(9.896261, 8.884068);
 
+    public static final LatLng VETINARY_INSTITUTE = new LatLng(9.702210, 8.779535);
+
+    private static final int LOCATION_PERMISSION_ID = 1;
+
 
     //Util methods
 
@@ -47,5 +62,36 @@ public class Config {
         NumberFormat formatter = new DecimalFormat("#,###");
         double num = (double) number;
         return formatter.format(num);
+    }
+
+    //Key generator
+    public static String generateKey(){
+        String uuid = UUID.randomUUID().toString();
+        uuid = uuid.substring(0, Math.min(uuid.length(), 8));
+
+        Date date= new Date();
+        long time = date.getTime();
+        Timestamp timestamp = new Timestamp(time);
+
+        String key = timestamp.toString() + uuid;
+        return key.replaceAll("[-+.^:,]","");
+    }
+
+    //Check whether the user allowed the location
+    public static  boolean checkLocationPermissions(Context context){
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+            return true;
+        }
+        return false;
+    }
+
+    //If location is not allowed, request location
+    public static void requestLocationPermissions(Activity activity){
+        ActivityCompat.requestPermissions(
+                activity,
+                new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION},
+                LOCATION_PERMISSION_ID
+        );
     }
 }

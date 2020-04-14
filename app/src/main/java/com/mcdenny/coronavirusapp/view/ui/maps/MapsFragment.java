@@ -35,10 +35,12 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.mcdenny.coronavirusapp.R;
+import com.mcdenny.coronavirusapp.utils.Config;
 import com.mcdenny.coronavirusapp.view.ui.symptom_form.SymptomFormActivity;
 
 import static com.mcdenny.coronavirusapp.utils.Config.JOS_HOSPITAL;
 import static com.mcdenny.coronavirusapp.utils.Config.PLATEAU_SPECIALIST;
+import static com.mcdenny.coronavirusapp.utils.Config.VETINARY_INSTITUTE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -51,8 +53,7 @@ public class MapsFragment extends Fragment implements
         OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private Marker plateau, josHospital;
-    private static final int REQUEST_LOCATION_PERMISSION = 1;
+    private Marker plateau, josHospital, vetinayInstitute;
     private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
@@ -106,6 +107,15 @@ public class MapsFragment extends Fragment implements
                 .visible(true)
                 .zIndex(4));
 
+        // Uses a colored icon.
+        vetinayInstitute = mMap.addMarker(new MarkerOptions()
+                .position(VETINARY_INSTITUTE)
+                .title("National Veterinary Research Institute")
+                .snippet("Main testing center")
+                .visible(true)
+                .zIndex(10)
+                .infoWindowAnchor(0.5f, 0.5f));
+
         plateau = mMap.addMarker(new MarkerOptions()
                 .position(PLATEAU_SPECIALIST)
                 .title("Plateau specialist Hospital")
@@ -114,6 +124,7 @@ public class MapsFragment extends Fragment implements
                 .zIndex(4));
 
         LatLngBounds bounds = new LatLngBounds.Builder()
+                .include(VETINARY_INSTITUTE)
                 .include(JOS_HOSPITAL)
                 .include(PLATEAU_SPECIALIST)
                 .build();
@@ -180,14 +191,10 @@ public class MapsFragment extends Fragment implements
      * Otherwise, enables the location layer.
      */
     private void enableMyLocation(GoogleMap map) {
-        if (ContextCompat.checkSelfPermission(getActivity(),
-                Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
+        if (Config.checkLocationPermissions(getContext())){
             map.setMyLocationEnabled(true);
         } else {
-            ActivityCompat.requestPermissions(getActivity(), new String[]
-                            {Manifest.permission.ACCESS_FINE_LOCATION},
-                    REQUEST_LOCATION_PERMISSION);
+            Config.requestLocationPermissions(getActivity());
         }
     }
 }

@@ -161,4 +161,11 @@
     <string name="quantity">Quantity</string>
     <string name="contact">Contact</string>
     <string name="description">Description</string>
+    <string name="forum">Forum</string>
+    <string name="email">Email</string>
+    <string name="what_is_on_your_mind">What is on your mind....</string>
+    <string name="post">Post</string>
+    <string name="name_optional">Name (Optional)</string>
+    <string name="denis_oluka">Denis Oluka</string>
+    <string name="wed_20th_01_2020">Wed 20th 01, 2020</string>
 </resources>

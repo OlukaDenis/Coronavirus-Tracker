@@ -5,14 +5,18 @@ public class Form {
     private User user;
     private Symptom symptom;
     private String hospital;
+    private double latitude;
+    private double longitude;
 
     public Form() {
     }
 
-    public Form(User user, Symptom symptom, String hospital) {
+    public Form(User user, Symptom symptom, String hospital, double latitude, double longitude) {
         this.user = user;
         this.symptom = symptom;
         this.hospital = hospital;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public String getId() {
@@ -45,5 +49,21 @@ public class Form {
 
     public void setHospital(String hospital) {
         this.hospital = hospital;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 }

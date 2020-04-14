@@ -14,7 +14,7 @@
             android:title="@string/countries" />
         <item
             android:id="@+id/nav_faq"
-            android:icon="@drawable/ic_faqs"
+            android:icon="@drawable/ic_local_hospital_black_24dp"
             android:title="@string/q_and_a" />
 
         <item
@@ -31,6 +31,11 @@
             android:id="@+id/nav_donate"
             android:icon="@drawable/ic_payment"
             android:title="@string/donate"/>
+
+        <item
+            android:id="@+id/nav_forum"
+            android:icon="@drawable/ic_faqs"
+            android:title="@string/forum"/>
     </group>
 
     <item android:title="@string/developer">

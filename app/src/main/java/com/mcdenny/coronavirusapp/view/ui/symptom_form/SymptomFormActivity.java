@@ -5,8 +5,14 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Looper;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -16,6 +22,11 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -25,6 +36,7 @@ import com.mcdenny.coronavirusapp.model.Form;
 import com.mcdenny.coronavirusapp.model.Hospital;
 import com.mcdenny.coronavirusapp.model.Symptom;
 import com.mcdenny.coronavirusapp.model.User;
+import com.mcdenny.coronavirusapp.utils.Config;
 import com.mcdenny.coronavirusapp.view.ui.HomeActivity;
 import com.mcdenny.coronavirusapp.view.ui.hospitals.HospitalActivity;
 import com.mcdenny.coronavirusapp.view.ui.hospitals.HospitalViewModel;
@@ -55,6 +67,8 @@ public class SymptomFormActivity extends AppCompatActivity {
     private static final int HOSPITAL_REQUEST_CODE = 100;
 
     private FirebaseAnalytics mFirebaseAnalytics;
+    private FusedLocationProviderClient mFusedLocationClient;
+    private double mLat, mLong;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +81,9 @@ public class SymptomFormActivity extends AppCompatActivity {
 
         SymptomFormViewModelFactory factory = new SymptomFormViewModelFactory(this.getApplication());
         viewModel = new ViewModelProvider(this, factory).get(SymptomFormViewModel.class);
+
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        getLastLocation();
 
 
         ArrayAdapter adapter = new ArrayAdapter<>(this, R.layout.dropdown_pop_up_item, GENDER);
@@ -100,7 +117,7 @@ public class SymptomFormActivity extends AppCompatActivity {
         HospitalViewModel viewModel = new ViewModelProvider(this, mfactory).get(HospitalViewModel.class);
         viewModel.getAllHospitals().observe(this, hospitals -> {
 
-            ArrayAdapter mAdapter = new ArrayAdapter<>(this, R.layout.dropdown_pop_up_item, LocalDataSource.hospitals());
+            ArrayAdapter mAdapter = new ArrayAdapter<>(this, R.layout.dropdown_pop_up_item, LocalDataSource.testingCenters());
             formHospital.setAdapter(mAdapter);
         });
 
@@ -164,7 +181,7 @@ public class SymptomFormActivity extends AppCompatActivity {
             Toast.makeText(this, "Please you must provide your gender", Toast.LENGTH_SHORT).show();
         }else {
             //Form submission
-            Form form = new Form(user, symptom, hospital);
+            Form form = new Form(user, symptom, hospital, mLat, mLong);
             viewModel.sendFormData(form);
 
             builder.setTitle("Thank you for submitting your symptoms")
@@ -179,36 +196,70 @@ public class SymptomFormActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == HOSPITAL_REQUEST_CODE && requestCode == RESULT_OK
-                && data != null && data.getData() != null){
-            String hospital = data.getStringExtra("hospital_name");
-            formHospital.setText(hospital);
-            Toast.makeText(this, hospital, Toast.LENGTH_SHORT).show();
+    @SuppressLint("MissingPermission")
+    private void getLastLocation(){
+        if (Config.checkLocationPermissions(this)) {
+            if (isLocationEnabled()) {
+                mFusedLocationClient.getLastLocation().addOnCompleteListener(
+                        task -> {
+                            Location location = task.getResult();
+                            if (location == null) {
+                                requestNewLocationData();
+                            } else {
+                                mLat = location.getLatitude();
+                                mLong = location.getLongitude();
+                            }
+                        }
+                );
+            } else {
+                Toast.makeText(this, "Turn on the device location", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                startActivity(intent);
+            }
+        } else {
+            Config.requestLocationPermissions(this);
         }
     }
 
-    public void openHospitals(View view) {
-        Intent getHospitalIntent = new Intent(this, HospitalActivity.class);
-        startActivityForResult(getHospitalIntent, HOSPITAL_REQUEST_CODE);
+    @SuppressLint("MissingPermission")
+    private void requestNewLocationData(){
+
+        LocationRequest mLocationRequest = new LocationRequest();
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        mLocationRequest.setInterval(0);
+        mLocationRequest.setFastestInterval(0);
+        mLocationRequest.setNumUpdates(1);
+
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        mFusedLocationClient.requestLocationUpdates(
+                mLocationRequest, mLocationCallback,
+                Looper.myLooper()
+        );
+
     }
 
-    private List<String> hospitals(){
+    private LocationCallback mLocationCallback = new LocationCallback() {
+        @Override
+        public void onLocationResult(LocationResult locationResult) {
+            Location mLastLocation = locationResult.getLastLocation();
+            mLat = mLastLocation.getLatitude();
+            mLong = mLastLocation.getLongitude();
+        }
+    };
 
-        List<String> stringList = new ArrayList<>();
+    private boolean isLocationEnabled(){
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
+                LocationManager.NETWORK_PROVIDER
+        );
+    }
 
-        HospitalViewModelFactory mfactory = new HospitalViewModelFactory(this.getApplication());
-        HospitalViewModel viewModel = new ViewModelProvider(this, mfactory).get(HospitalViewModel.class);
-        viewModel.getAllHospitals().observe(this, hospitals -> {
+    @Override
+    public void onResume(){
+        super.onResume();
+        if (Config.checkLocationPermissions(this)) {
+            getLastLocation();
+        }
 
-            for (int i =0; i < hospitals.size(); i++){
-                Hospital hospital = hospitals.get(i);
-                stringList.add(hospital.getName());
-            }
-        });
-        return stringList;
     }
 }

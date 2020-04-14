@@ -25,6 +25,7 @@ public class LocalDataSource {
     }
 
     public static List<String> ALL_STATES = new ArrayList<>();
+
     public static List<String> hospitals(){
 
         List<String> hList = new ArrayList<>();
@@ -117,6 +118,16 @@ public class LocalDataSource {
         hList.add("Usmanu Danfodio University Teaching Hospital");
 
         return hList;
+    }
+
+    public static List<String> testingCenters(){
+        List<String> hospitals = new ArrayList<>();
+
+        hospitals.add("National Veterinary Research Institute");
+        hospitals.add("Jos University Teaching Hospital");
+        hospitals.add("Plateau specialist Hospital");
+
+        return hospitals;
     }
 
     public static List<State> states(){

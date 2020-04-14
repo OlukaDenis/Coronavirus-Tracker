@@ -14,6 +14,8 @@ public class Test {
     private String travel_history;
     private String direct_contact;
     private String result;
+    private double latitude;
+    private double longitude;
 
     public Test() {
     }
@@ -135,6 +137,22 @@ public class Test {
 
     public void setResult(String result) {
         this.result = result;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
     public String info(){
