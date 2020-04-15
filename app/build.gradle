@@ -94,6 +94,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:19.2.1'
     implementation 'com.google.firebase:firebase-analytics:17.3.0'
     implementation 'com.firebaseui:firebase-ui-database:6.2.0'
+    implementation 'com.google.firebase:firebase-messaging:20.1.5'
 
     //Shimmer flexible loading
     implementation 'com.facebook.shimmer:shimmer:0.5.0'

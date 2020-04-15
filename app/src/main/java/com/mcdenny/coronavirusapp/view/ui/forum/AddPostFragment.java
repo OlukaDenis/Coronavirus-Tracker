@@ -17,6 +17,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.mcdenny.coronavirusapp.R;
 import com.mcdenny.coronavirusapp.model.Post;
 import com.mcdenny.coronavirusapp.model.User;
+import com.mcdenny.coronavirusapp.utils.Config;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -35,17 +36,22 @@ public class AddPostFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View root = inflater.inflate(R.layout.fragment_add_post, container, false);
+        View root;
+        if (Config.isNetworkAvailable(getContext())) {
+            root = inflater.inflate(R.layout.fragment_add_post, container, false);
 
-        mName = root.findViewById(R.id.post_user_name);
-        mEmail = root.findViewById(R.id.post_user_email);
-        mDesc = root.findViewById(R.id.post_description);
-        btnSubmit = root.findViewById(R.id.btn_add_post);
+            mName = root.findViewById(R.id.post_user_name);
+            mEmail = root.findViewById(R.id.post_user_email);
+            mDesc = root.findViewById(R.id.post_description);
+            btnSubmit = root.findViewById(R.id.btn_add_post);
 
-        ForumViewModelFactory factory = new ForumViewModelFactory(getActivity().getApplication());
-        viewModel = new ViewModelProvider(this, factory).get(ForumViewModel.class);
+            ForumViewModelFactory factory = new ForumViewModelFactory(getActivity().getApplication());
+            viewModel = new ViewModelProvider(this, factory).get(ForumViewModel.class);
 
-        btnSubmit.setOnClickListener(v -> submitPost());
+            btnSubmit.setOnClickListener(v -> submitPost());
+        } else {
+            root = inflater.inflate(R.layout.fragment_no_connection, container, false);
+        }
 
         return root;
     }

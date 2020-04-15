@@ -260,6 +260,5 @@ public class SymptomFormActivity extends AppCompatActivity {
         if (Config.checkLocationPermissions(this)) {
             getLastLocation();
         }
-
     }
 }

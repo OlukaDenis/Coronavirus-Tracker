@@ -25,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.mcdenny.coronavirusapp.R;
 import com.mcdenny.coronavirusapp.model.Post;
+import com.mcdenny.coronavirusapp.utils.Config;
 import com.mcdenny.coronavirusapp.view.viewholder.ForumViewHolder;
 
 import java.util.List;
@@ -46,26 +47,30 @@ public class ForumFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View root = inflater.inflate(R.layout.fragment_forum, container, false);
-        mShimmerViewContainer = root.findViewById(R.id.shimmer_container);
+        View root;
+        if (Config.isNetworkAvailable(getContext())) {
+            root = inflater.inflate(R.layout.fragment_forum, container, false);
+            mShimmerViewContainer = root.findViewById(R.id.shimmer_container);
 
-        //Init firebase analytics
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(getActivity());
-        mFirebaseAnalytics.setCurrentScreen(getActivity(), this.getClass().getSimpleName(),
-                this.getClass().getSimpleName());
+            //Init firebase analytics
+            mFirebaseAnalytics = FirebaseAnalytics.getInstance(getActivity());
+            mFirebaseAnalytics.setCurrentScreen(getActivity(), this.getClass().getSimpleName(),
+                    this.getClass().getSimpleName());
 
-        fabAddPost = root.findViewById(R.id.fab_add_post);
-        recyclerView = root.findViewById(R.id.forum_recyclerview);
+            fabAddPost = root.findViewById(R.id.fab_add_post);
+            recyclerView = root.findViewById(R.id.forum_recyclerview);
 
-        layoutManager = new LinearLayoutManager(getContext());
-        layoutManager.setReverseLayout(true);
-        layoutManager.setStackFromEnd(true);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setHasFixedSize(true);
-        fetchAllPosts();
+            layoutManager = new LinearLayoutManager(getContext());
+            layoutManager.setReverseLayout(true);
+            layoutManager.setStackFromEnd(true);
+            recyclerView.setLayoutManager(layoutManager);
+            recyclerView.setHasFixedSize(true);
+            fetchAllPosts();
 
-        fabAddPost.setOnClickListener(v -> openAddFragment());
-
+            fabAddPost.setOnClickListener(v -> openAddFragment());
+        } else {
+            root = inflater.inflate(R.layout.fragment_no_connection, container, false);
+        }
 
         return root;
 

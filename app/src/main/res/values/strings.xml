@@ -168,4 +168,7 @@
     <string name="name_optional">Name (Optional)</string>
     <string name="denis_oluka">Denis Oluka</string>
     <string name="wed_20th_01_2020">Wed 20th 01, 2020</string>
+    <string name="no_internet_connection">No internet connection</string>
+
+    <string name="msg_token_fmt">message_token</string>
 </resources>

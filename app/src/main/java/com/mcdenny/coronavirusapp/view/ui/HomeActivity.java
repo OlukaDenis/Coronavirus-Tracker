@@ -14,8 +14,11 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.mcdenny.coronavirusapp.R;
 import com.mcdenny.coronavirusapp.utils.Config;
 
@@ -41,6 +44,8 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        getFCMtoken();
 
         //Init firebase analytics
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
@@ -95,5 +100,12 @@ public class HomeActivity extends AppCompatActivity {
         if (!Config.checkLocationPermissions(this)){
             Config.requestLocationPermissions(this);
         }
+    }
+
+    private void getFCMtoken(){
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(this, instanceIdResult -> {
+           String fcmToken = instanceIdResult.getToken();
+            Log.d(TAG, "getFCMtoken: "+fcmToken);
+        });
     }
 }

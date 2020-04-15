@@ -37,6 +37,13 @@
             android:value="@string/google_maps_key" />
 
         <activity android:name=".view.ui.hospitals.HospitalActivity" />
+        <service
+            android:name=".data.service.MessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
         <activity
             android:name=".view.ui.splashscreen.SplashActivity"
             android:theme="@style/WithNoActionBar">

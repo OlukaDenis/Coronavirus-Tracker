@@ -5,11 +5,17 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.util.Log;
 
 import androidx.core.app.ActivityCompat;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -17,6 +23,7 @@ import java.util.Date;
 import java.util.UUID;
 
 public class Config {
+    private static final String TAG = "Config";
     public Config() {
     }
 
@@ -54,6 +61,11 @@ public class Config {
     public static final LatLng VETINARY_INSTITUTE = new LatLng(9.702210, 8.779535);
 
     private static final int LOCATION_PERMISSION_ID = 1;
+
+    //FCM
+    public static final String FCM_NOTIFICATION_ID = "222";
+    public static final int NOTIFICATION_ID = 101;
+    public static final String FCM_NOTIFICATION_CHANNEL = "cloud_messages_channel";
 
 
     //Util methods
@@ -93,5 +105,34 @@ public class Config {
                 new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION},
                 LOCATION_PERMISSION_ID
         );
+    }
+
+
+    //Check for available network
+    public static boolean isNetworkAvailable(Context context) {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
+    }
+
+    //Check for an active internect connection
+    public static boolean hasActiveInternetConnection(Context context) {
+        if (isNetworkAvailable(context)) {
+            try {
+                HttpURLConnection urlc = (HttpURLConnection) (new URL("http://www.google.com").openConnection());
+                urlc.setRequestProperty("User-Agent", "Android");
+                urlc.setRequestProperty("Connection", "close");
+                urlc.setConnectTimeout(1500);
+                urlc.connect();
+                return (urlc.getResponseCode() == 204 &&
+                        urlc.getContentLength() == 0);
+            } catch (IOException e) {
+                Log.e(TAG, "Error checking internet connection", e);
+            }
+        } else {
+            Log.d(TAG, "No network available!");
+        }
+        return false;
     }
 }
