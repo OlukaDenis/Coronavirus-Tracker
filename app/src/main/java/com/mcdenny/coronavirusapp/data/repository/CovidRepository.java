@@ -4,6 +4,7 @@ package com.mcdenny.coronavirusapp.data.repository;
 import android.app.Application;
 import android.util.Log;
 
+import androidx.annotation.WorkerThread;
 import androidx.lifecycle.LiveData;
 
 import com.mcdenny.coronavirusapp.data.api.ApiService;
@@ -55,6 +56,11 @@ public class CovidRepository {
 
     public LiveData<List<Hospital>> getAllHospitals(){
         return hospitalDao.getAllHospitals();
+    }
+
+    @WorkerThread
+    public LiveData<List<CoronaCountry>> getSearchResults(String country){
+        return mDao.getSearchResults(country);
     }
 
     private void getStates(){
