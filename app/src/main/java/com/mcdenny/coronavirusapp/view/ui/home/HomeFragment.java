@@ -1,6 +1,5 @@
 package com.mcdenny.coronavirusapp.view.ui.home;
 
-import android.Manifest;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -13,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -121,7 +119,7 @@ public class HomeFragment extends Fragment {
         });
 
         populateStats();
-        getUgandaCoronaStats();
+        getCountryCoronaStats();
 
         return root;
 
@@ -190,7 +188,7 @@ public class HomeFragment extends Fragment {
         ugDeathsToday.setText(String.format(res.getString(R.string.today), country.getTodayDeaths()));
     }
 
-    private void getUgandaCoronaStats(){
+    private void getCountryCoronaStats(){
         ApiService service = ApiClient.getApiService(ApiService.class);
         Call<CoronaCountry> call = service.getOneCountry(NIGERIA);
         call.enqueue(new Callback<CoronaCountry>() {
