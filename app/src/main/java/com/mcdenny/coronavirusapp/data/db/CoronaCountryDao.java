@@ -19,9 +19,12 @@ public interface CoronaCountryDao {
     @Query("SELECT * FROM corona_country WHERE id >= 1 AND country = :name LIMIT 1")
     CoronaCountry getOneCountry(String name);
 
-    @Query("SELECT * FROM corona_country")
+    @Query("SELECT * FROM corona_country ORDER BY cases DESC")
     LiveData<List<CoronaCountry>> getAllCountries();
 
     @Query("DELETE FROM corona_country")
     void deleteAllCountries();
+
+    @Query("SELECT * FROM corona_country WHERE country LIKE :item")
+    LiveData<List<CoronaCountry>> getSearchResults(String item);
 }

@@ -18,6 +18,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.mcdenny.coronavirusapp.R;
 import com.mcdenny.coronavirusapp.model.Donation;
+import com.mcdenny.coronavirusapp.utils.Config;
 
 import java.util.Objects;
 
@@ -37,26 +38,31 @@ public class MaterialDonationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View root = inflater.inflate(R.layout.fragment_material_donation, container, false);
+        View root;
+        if (Config.isNetworkAvailable(getContext())) {
+            root = inflater.inflate(R.layout.fragment_material_donation, container, false);
 
-        //Init firebase analytics
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(getActivity());
-        mFirebaseAnalytics.setCurrentScreen(getActivity(), this.getClass().getSimpleName(), this.getClass().getSimpleName());
+            //Init firebase analytics
+            mFirebaseAnalytics = FirebaseAnalytics.getInstance(getActivity());
+            mFirebaseAnalytics.setCurrentScreen(getActivity(), this.getClass().getSimpleName(), this.getClass().getSimpleName());
 
 
-        builder = new AlertDialog.Builder(getContext());
+            builder = new AlertDialog.Builder(getContext());
 
-        mContact = root.findViewById(R.id.donatio_contact);
-        mType = root.findViewById(R.id.donation_type);
-        mQty = root.findViewById(R.id.donation_quantity);
-        mName = root.findViewById(R.id.donation_name);
-        mDescription = root.findViewById(R.id.donation_desc);
-        btnDonate = root.findViewById(R.id.btn_donate_material);
+            mContact = root.findViewById(R.id.donatio_contact);
+            mType = root.findViewById(R.id.donation_type);
+            mQty = root.findViewById(R.id.donation_quantity);
+            mName = root.findViewById(R.id.donation_name);
+            mDescription = root.findViewById(R.id.donation_desc);
+            btnDonate = root.findViewById(R.id.btn_donate_material);
 
-        DonateViewModelFactory factory = new DonateViewModelFactory(getActivity().getApplication());
-        viewModel = new ViewModelProvider(this, factory).get(DonateViewModel.class);
+            DonateViewModelFactory factory = new DonateViewModelFactory(getActivity().getApplication());
+            viewModel = new ViewModelProvider(this, factory).get(DonateViewModel.class);
 
-        btnDonate.setOnClickListener(v -> submitForm());
+            btnDonate.setOnClickListener(v -> submitForm());
+        } else {
+            root = inflater.inflate(R.layout.fragment_no_connection, container, false);
+        }
 
         return root;
     }

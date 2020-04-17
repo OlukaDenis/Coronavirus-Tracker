@@ -6,8 +6,14 @@ public class User {
     private String state;
     private String gender;
     private String phone;
+    private String email;
 
     public User() {
+    }
+
+    public User(String name, String email) {
+        this.name = name;
+        this.email = email;
     }
 
     public User(String name, String state, String gender, String phone) {
@@ -47,5 +53,13 @@ public class User {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
