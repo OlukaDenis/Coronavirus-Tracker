@@ -60,5 +60,16 @@
         android:label="Donate Funds"
         tools:layout="@layout/fragment_funds_donation" />
 
+    <fragment
+        android:id="@+id/nav_forum"
+        android:name="com.mcdenny.coronavirusapp.view.ui.forum.ForumFragment"
+        android:label="Forum"
+        tools:layout="@layout/fragment_forum" />
+
+    <fragment
+        android:id="@+id/nav_add_post"
+        android:name="com.mcdenny.coronavirusapp.view.ui.forum.AddPostFragment"
+        android:label="Add New Post"
+        tools:layout="@layout/fragment_add_post" />
 
 </navigation>

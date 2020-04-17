@@ -57,23 +57,28 @@ public class FundsDonationFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_funds_donation, container, false);
+        View root;
+        if (Config.isNetworkAvailable(getContext())) {
+            root = inflater.inflate(R.layout.fragment_funds_donation, container, false);
 
-        //Init firebase analytics
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(getActivity());
-        mFirebaseAnalytics.setCurrentScreen(getActivity(), this.getClass().getSimpleName(), this.getClass().getSimpleName());
+            //Init firebase analytics
+            mFirebaseAnalytics = FirebaseAnalytics.getInstance(getActivity());
+            mFirebaseAnalytics.setCurrentScreen(getActivity(), this.getClass().getSimpleName(), this.getClass().getSimpleName());
 
-        //start paypal service
-        Intent intent = new Intent(getActivity(),PayPalService.class);
-        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION,config);
-        getActivity().startService(intent);
+            //start paypal service
+            Intent intent = new Intent(getActivity(), PayPalService.class);
+            intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
+            getActivity().startService(intent);
 
-        etAmount = root.findViewById(R.id.donate_amount);
-        btn_donate_now = root.findViewById(R.id.btn_donate_now);
+            etAmount = root.findViewById(R.id.donate_amount);
+            btn_donate_now = root.findViewById(R.id.btn_donate_now);
 
-        res = getResources();
+            res = getResources();
 
-        btn_donate_now.setOnClickListener(v -> processPayment());
+            btn_donate_now.setOnClickListener(v -> processPayment());
+        } else {
+            root = inflater.inflate(R.layout.fragment_no_connection, container, false);
+        }
 
 
         return root;

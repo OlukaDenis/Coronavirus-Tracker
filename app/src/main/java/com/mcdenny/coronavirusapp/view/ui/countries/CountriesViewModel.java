@@ -22,6 +22,9 @@ public class CountriesViewModel extends ViewModel {
         return repository.getAllCountries();
     }
 
+    public LiveData<List<CoronaCountry>> searchCountries(String country){
+        return repository.getSearchResults(country);
+    }
 
 
 }

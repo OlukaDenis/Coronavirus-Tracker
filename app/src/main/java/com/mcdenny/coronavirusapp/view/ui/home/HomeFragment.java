@@ -1,5 +1,6 @@
 package com.mcdenny.coronavirusapp.view.ui.home;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -62,7 +64,8 @@ public class HomeFragment extends Fragment {
 
         //Init firebase analytics
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(getActivity());
-        mFirebaseAnalytics.setCurrentScreen(getActivity(), this.getClass().getSimpleName(), this.getClass().getSimpleName());
+        mFirebaseAnalytics.setCurrentScreen(getActivity(), this.getClass().getSimpleName(),
+                this.getClass().getSimpleName());
 
         //view reference
         tvCases = root.findViewById(R.id.cases);
@@ -208,4 +211,6 @@ public class HomeFragment extends Fragment {
         });
 
     }
+
+
 }
